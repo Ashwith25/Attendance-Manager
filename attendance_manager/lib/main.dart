@@ -2,6 +2,8 @@ import 'package:attendance_manager/theme.dart';
 import 'package:attendance_manager/welcome.dart';
 import 'package:flutter/material.dart';
 
+import 'Home/teacherHome.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Attendance Manager',
       theme: AppTheme.getTheme(),
-      home: SplashScreen6(),
+      home: TeacherHome(),
     );
   }
 }

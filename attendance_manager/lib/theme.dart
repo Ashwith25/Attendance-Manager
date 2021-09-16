@@ -21,19 +21,22 @@ class AppTheme {
           textStyle: TextStyle(
               color: base.headline6!.color,
               fontSize: 20,
-              fontWeight: FontWeight.w500)),
+              fontWeight: FontWeight.w500
+              )),
       subtitle1: GoogleFonts.nunito(
           textStyle: TextStyle(color: base.subtitle1!.color, fontSize: 18)),
       subtitle2: GoogleFonts.nunito(
           textStyle: TextStyle(
               color: base.subtitle2!.color,
               fontSize: 14,
-              fontWeight: FontWeight.w500)),
+              fontWeight: FontWeight.w500
+              )),
       bodyText2: GoogleFonts.nunito(
           textStyle: TextStyle(
               color: base.bodyText2!.color,
               fontSize: 18,
-              fontWeight: FontWeight.w700)),
+              // fontWeight: FontWeight.w700
+              )),
       bodyText1: GoogleFonts.nunito(
           textStyle: TextStyle(color: base.bodyText1!.color, fontSize: 16)),
       button: GoogleFonts.nunito(
@@ -69,7 +72,7 @@ class AppTheme {
     final ThemeData base = ThemeData.light();
     return base.copyWith(
         appBarTheme: AppBarTheme(
-          color: primaryColor,
+          color: secondaryColor,
         ),
         popupMenuTheme: PopupMenuThemeData(color: Colors.white),
         colorScheme: colorScheme,
