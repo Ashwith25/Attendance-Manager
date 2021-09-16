@@ -69,7 +69,7 @@ class _SplashScreen6State extends State<SplashScreen6>
         Tween<double>(begin: 1.0, end: 32.0).animate(_scale2Controller)
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   PageTransition(
                       type: PageTransitionType.fade, child: LoginPage()));
@@ -203,7 +203,9 @@ class _SplashScreen6State extends State<SplashScreen6>
                                                           ? Icon(
                                                               Icons
                                                                   .arrow_forward,
-                                                              color: Theme.of(context).primaryColor,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor,
                                                             )
                                                           : Container(),
                                                     )),

@@ -31,9 +31,10 @@ class AppTheme {
               fontWeight: FontWeight.w500)),
       bodyText2: GoogleFonts.nunito(
           textStyle: TextStyle(
-              color: base.bodyText2!.color,
-              fontSize: 18,
-              fontWeight: FontWeight.w700)),
+        color: base.bodyText2!.color,
+        fontSize: 18,
+        // fontWeight: FontWeight.w700
+      )),
       bodyText1: GoogleFonts.nunito(
           textStyle: TextStyle(color: base.bodyText1!.color, fontSize: 16)),
       button: GoogleFonts.nunito(
@@ -90,7 +91,7 @@ class AppTheme {
         // cardTheme: _cardTheme(),
         textTheme: _buildTextTheme(base.textTheme),
         primaryTextTheme: _buildTextTheme(base.textTheme),
-        platform: TargetPlatform.android ,
+        platform: TargetPlatform.android,
         indicatorColor: primaryColor,
         disabledColor: HexColor("#D5D7D8"));
   }
@@ -124,8 +125,7 @@ class AppTheme {
       textTheme: _buildTextTheme(base.textTheme),
       primaryTextTheme: _buildTextTheme(base.primaryTextTheme),
       accentTextTheme: _buildTextTheme(base.accentTextTheme),
-      platform: TargetPlatform.android ,
-
+      platform: TargetPlatform.android,
     );
   }
 
