@@ -1,3 +1,4 @@
+import 'package:attendance_manager/Screens/eachClass.dart';
 import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/profile.dart';
 import 'package:attendance_manager/widgets/homeScreenCard.dart';
@@ -46,26 +47,32 @@ class _TeacherHomeState extends State<TeacherHome> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Welcome,",
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: goldenColor,
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    "Welcome,",
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: goldenColor,
+                    ),
                   ),
                 ),
-                Text(
-                  "Teacher name",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    "Teacher name",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                
+
                 SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
@@ -99,23 +106,32 @@ class _TeacherHomeState extends State<TeacherHome> {
                 SizedBox(
                   height: 20,
                 ),
-                Text(
-                  "Your classes",
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: goldenColor,
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    "Your classes",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: goldenColor,
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 for (int i = 0; i < 10; i++)
-                  Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    child: NameCard(
-                      title: "Class ${i + 1}",
-                      subtitle: "${i + 10} students",
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => EachClass()));
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: NameCard(
+                        title: "Class ${i + 1}",
+                        subtitle: "${i + 10} students",
+                      ),
                     ),
                   )
                 // Container(

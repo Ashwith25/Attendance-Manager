@@ -38,6 +38,7 @@ dependencies:
   page_transition: ^2.0.2
   simple_animations: ^3.1.1
   flutter_neumorphic: ^3.1.0
+  fl_chart: ^0.36.1
 
 dev_dependencies:
   flutter_test:
