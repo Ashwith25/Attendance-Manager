@@ -1,21 +1,20 @@
 import 'package:attendance_manager/Home/teacherHome.dart';
 import 'package:attendance_manager/auth/change_password.dart';
 import 'package:attendance_manager/auth/signup.dart';
-import 'package:attendance_manager/editProfile.dart';
 import 'package:attendance_manager/widgets/homeScreenCard.dart';
 import 'package:flutter/material.dart';
 import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/theme.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-class ProfilePage extends StatefulWidget {
-  ProfilePage({Key? key}) : super(key: key);
+class EditProfilePage extends StatefulWidget {
+  EditProfilePage({Key? key}) : super(key: key);
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  _EditProfilePageState createState() => _EditProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _EditProfilePageState extends State<EditProfilePage> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -27,10 +26,10 @@ class _ProfilePageState extends State<ProfilePage> {
         appBar: AppBar(
           actions: [
             IconButton(
-              icon: Icon(Icons.edit),
+              icon: Icon(Icons.cancel),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EditProfilePage()));
+                    MaterialPageRoute(builder: (context) => TeacherHome()));
               },
             )
           ],
@@ -181,6 +180,25 @@ class _ProfilePageState extends State<ProfilePage> {
                                 labelStyle: TextStyle(color: Colors.white))),
                       ),
                       Container(
+                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.info_outline,
+                              color: Colors.red,
+                              size: 10,
+                            ),
+                            Text(
+                              "Tap on the address to update",
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 10,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
                         padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                         child: MaterialButton(
                           minWidth: double.infinity,
@@ -189,7 +207,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5)),
                           child: Text(
-                            "Change Password",
+                            "Update",
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,
@@ -205,12 +223,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           },
                         ),
                       ),
-                      // Spacer(),
+                      //     Spacer(),
                       //     Row(
                       //       mainAxisAlignment: MainAxisAlignment.center,
                       // crossAxisAlignment: CrossAxisAlignment.end,
                       //       children: [Text("Version 1.0.1")],
-                      // )
+                      //     )
                     ],
                   ),
                 ),
