@@ -20,8 +20,19 @@ class _EachClassState extends State<EachClass> {
     return MaterialBanner(
         content: const Text("Do you want to remove this student?"),
         actions: [
-          TextButton(onPressed: () {}, child: const Text("Yes")),
-          TextButton(onPressed: () {}, child: const Text("No")),
+          TextButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+              },
+              child: Text(
+                "Yes",
+                style: TextStyle(color: Theme.of(context).errorColor),
+              )),
+          TextButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+              },
+              child: const Text("No")),
         ]);
   }
 
