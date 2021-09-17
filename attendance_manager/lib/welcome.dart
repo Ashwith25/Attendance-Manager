@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:attendance_manager/auth/login.dart';
+import 'package:attendance_manager/auth/signup.dart';
 
 class SplashScreen6 extends StatefulWidget {
   @override
@@ -72,7 +73,7 @@ class _SplashScreen6State extends State<SplashScreen6>
               Navigator.pushReplacement(
                   context,
                   PageTransition(
-                      type: PageTransitionType.fade, child: LoginPage()));
+                      type: PageTransitionType.fade, child: SignupPage()));
             }
           });
   }
