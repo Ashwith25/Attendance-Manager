@@ -1,7 +1,5 @@
 import 'package:attendance_manager/constants.dart';
-import 'package:attendance_manager/theme.dart';
 import 'package:attendance_manager/widgets/chart.dart';
-import 'package:attendance_manager/widgets/homeScreenCard.dart';
 import 'package:attendance_manager/widgets/nameCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -262,11 +260,17 @@ class _EachClassState extends State<EachClass> {
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              "Add new student",
-                              style:
-                                  TextStyle(color: goldenColor, fontSize: 25),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              child: FittedBox(
+                                child: Text(
+                                  "Add new student",
+                                  style:
+                                      TextStyle(color: goldenColor, fontSize: 25),
+                                ),
+                              ),
                             ),
                             InkWell(
                               onTap: () {
