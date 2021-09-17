@@ -1,6 +1,6 @@
 import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/widgets/homeScreenCard.dart';
-import 'package:attendance_manager/widgets/teacherCard.dart';
+import 'package:attendance_manager/widgets/nameCard.dart';
 import 'package:flutter/material.dart';
 
 class TeacherHome extends StatefulWidget {
@@ -92,9 +92,9 @@ class _TeacherHomeState extends State<TeacherHome> {
                 for (int i = 0; i < 10; i++)
                   Padding(
                     padding: EdgeInsets.only(left: 10, right: 10),
-                    child: TeacherNameCard(
-                      className: "Class ${i + 1}",
-                      studentCount: i + 10,
+                    child: NameCard(
+                      title: "Class ${i + 1}",
+                      subtitle: "${i + 10} students",
                     ),
                   )
                 // Container(

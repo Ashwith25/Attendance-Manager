@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class TeacherNameCard extends StatelessWidget {
-  final className;
-  final studentCount;
-  const TeacherNameCard({Key? key, this.className, this.studentCount})
+class NameCard extends StatelessWidget {
+  final title;
+  final subtitle;
+  const NameCard({Key? key, this.title, this.subtitle})
       : super(key: key);
 
   @override
@@ -39,7 +39,7 @@ class TeacherNameCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  className,
+                  title,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -47,7 +47,7 @@ class TeacherNameCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "$studentCount students",
+                  "$subtitle",
                   // style:
                   style: TextStyle(
                     fontSize: 15,
