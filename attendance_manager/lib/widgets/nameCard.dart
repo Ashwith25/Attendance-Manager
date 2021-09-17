@@ -40,7 +40,7 @@ class NameCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  title.toString().toUpperCase(),
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -48,9 +48,10 @@ class NameCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "$subtitle",
+                  "$subtitle".toUpperCase(),
                   // style:
                   style: TextStyle(
+                    letterSpacing: 1,
                     fontSize: 15,
                     fontWeight: FontWeight.w100,
                     // fontWeight: FontWeight.,

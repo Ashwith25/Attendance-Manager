@@ -87,7 +87,7 @@ class _TeacherHomeState extends State<TeacherHome> {
                                   builder: (context) => AddNewClassPage()));
                         },
                         child: HomeScreenCard(
-                          title: "Add class",
+                          title: "Add Class",
                           // icon: 'assets/add.png',
                           icon: Icons.add,
                         ),

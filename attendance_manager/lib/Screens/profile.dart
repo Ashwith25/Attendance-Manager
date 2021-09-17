@@ -271,7 +271,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  // if (_formKey.currentState!.validate())
+                                  if (_formKey.currentState!.validate())
+                                    print("pass");
                                   //   Navigator.push(
                                   //       context,
                                   //       MaterialPageRoute(
