@@ -48,7 +48,7 @@ class NameCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "$subtitle".toUpperCase(),
+                  "$subtitle",
                   // style:
                   style: TextStyle(
                     letterSpacing: 1,

@@ -36,16 +36,12 @@ class _EachClassState extends State<EachClass> {
             Container(
               margin: EdgeInsets.only(right: 20),
               child: IconButton(
-                icon: Icon(
-                  Icons.add,
-                  size: 30,
-                  color: Colors.white,
-                ),
+                icon: Icon(Icons.add, size: 30, color: Colors.white,),
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MarkAttendancePage()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MarkAttendancePage()));
                 },
               ),
             )
@@ -374,7 +370,7 @@ class _EachClassState extends State<EachClass> {
                         Container(
                           // padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                           child: TextFormField(
-                              readOnly: true,
+                            readOnly: true,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Name cannot be empty";
