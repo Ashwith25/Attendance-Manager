@@ -91,7 +91,7 @@ class AppTheme {
         // cardTheme: _cardTheme(),
         textTheme: _buildTextTheme(base.textTheme),
         primaryTextTheme: _buildTextTheme(base.textTheme),
-        platform: TargetPlatform.android,
+        platform: TargetPlatform.iOS,
         indicatorColor: primaryColor,
         disabledColor: HexColor("#D5D7D8"));
   }
@@ -125,7 +125,7 @@ class AppTheme {
       textTheme: _buildTextTheme(base.textTheme),
       primaryTextTheme: _buildTextTheme(base.primaryTextTheme),
       accentTextTheme: _buildTextTheme(base.accentTextTheme),
-      platform: TargetPlatform.android,
+      platform: TargetPlatform.iOS,
     );
   }
 

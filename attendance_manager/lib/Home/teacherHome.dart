@@ -1,7 +1,7 @@
 import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/profile.dart';
 import 'package:attendance_manager/widgets/homeScreenCard.dart';
-import 'package:attendance_manager/widgets/teacherCard.dart';
+import 'package:attendance_manager/widgets/nameCard.dart';
 import 'package:flutter/material.dart';
 
 class TeacherHome extends StatefulWidget {
@@ -59,12 +59,13 @@ class _TeacherHomeState extends State<TeacherHome> {
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: goldenColor,
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
+                
                 SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
@@ -98,12 +99,23 @@ class _TeacherHomeState extends State<TeacherHome> {
                 SizedBox(
                   height: 20,
                 ),
+                Text(
+                  "Your classes",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: goldenColor,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 for (int i = 0; i < 10; i++)
                   Padding(
                     padding: EdgeInsets.only(left: 10, right: 10),
-                    child: TeacherNameCard(
-                      className: "Class ${i + 1}",
-                      studentCount: i + 10,
+                    child: NameCard(
+                      title: "Class ${i + 1}",
+                      subtitle: "${i + 10} students",
                     ),
                   )
                 // Container(

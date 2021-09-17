@@ -109,6 +109,7 @@ class _SignupPageState extends State<SignupPage> {
                     },
                     obscureText: !_passwordVisible,
                     style: TextStyle(color: Colors.white),
+                    cursorColor: Colors.white,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -149,6 +150,7 @@ class _SignupPageState extends State<SignupPage> {
                     },
                     obscureText: !_passwordVisible,
                     style: TextStyle(color: Colors.white),
+                    cursorColor: Colors.white,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
                         icon: Icon(

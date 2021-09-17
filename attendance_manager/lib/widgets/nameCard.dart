@@ -1,9 +1,10 @@
+import 'package:attendance_manager/constants.dart';
 import 'package:flutter/material.dart';
 
-class TeacherNameCard extends StatelessWidget {
-  final className;
-  final studentCount;
-  const TeacherNameCard({Key? key, this.className, this.studentCount})
+class NameCard extends StatelessWidget {
+  final title;
+  final subtitle;
+  const NameCard({Key? key, this.title, this.subtitle})
       : super(key: key);
 
   @override
@@ -39,19 +40,19 @@ class TeacherNameCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  className,
+                  title,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: goldenColor,
                   ),
                 ),
                 Text(
-                  "$studentCount students",
+                  "$subtitle",
                   // style:
                   style: TextStyle(
                     fontSize: 15,
-                    fontWeight: FontWeight.w300,
+                    fontWeight: FontWeight.w100,
                     // fontWeight: FontWeight.,
                     color: Colors.white,
                   ),

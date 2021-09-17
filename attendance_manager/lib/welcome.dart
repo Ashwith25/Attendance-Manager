@@ -74,7 +74,7 @@ class _SplashScreen6State extends State<SplashScreen6>
               Navigator.pushReplacement(
                   context,
                   PageTransition(
-                      type: PageTransitionType.fade, child: SignupPage()));
+                      type: PageTransitionType.fade, child: LoginPage()));
             }
           });
   }
