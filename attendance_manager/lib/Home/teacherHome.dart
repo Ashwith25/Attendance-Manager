@@ -16,13 +16,18 @@ class _TeacherHomeState extends State<TeacherHome> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          elevation: 10,
+          leading: Container(
+            width: 0,
+          ),
           title: Text(
             'Attendance Manager',
             style: TextStyle(
+              color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
           ),
-          // foregroundColor: Theme.of(context).,
+          foregroundColor: Theme.of(context).primaryColor,
         ),
         body: Container(
           padding: EdgeInsets.all(10),

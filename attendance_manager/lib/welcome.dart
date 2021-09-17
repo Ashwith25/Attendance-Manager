@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:simple_animations/simple_animations.dart';
+import 'package:attendance_manager/auth/login.dart';
 
 class SplashScreen6 extends StatefulWidget {
   @override
@@ -68,7 +69,7 @@ class _SplashScreen6State extends State<SplashScreen6>
         Tween<double>(begin: 1.0, end: 32.0).animate(_scale2Controller)
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   PageTransition(
                       type: PageTransitionType.fade, child: LoginPage()));
@@ -202,7 +203,9 @@ class _SplashScreen6State extends State<SplashScreen6>
                                                           ? Icon(
                                                               Icons
                                                                   .arrow_forward,
-                                                              color: Theme.of(context).primaryColor,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor,
                                                             )
                                                           : Container(),
                                                     )),
@@ -229,91 +232,91 @@ class _SplashScreen6State extends State<SplashScreen6>
 }
 
 ///
-class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Login Page"),
-      ),
-      backgroundColor: Colors.grey.withOpacity(0.3),
-      body: Container(
-        padding: EdgeInsets.all(30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            FadeAnimation(
-                1.2,
-                Text(
-                  "Login",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold),
-                )),
-            SizedBox(
-              height: 30,
-            ),
-            FadeAnimation(
-                1.5,
-                Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white),
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(color: Colors.grey[300]!))),
-                        child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintStyle:
-                                  TextStyle(color: Colors.grey.withOpacity(.8)),
-                              hintText: "Email or Phone number"),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(),
-                        child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintStyle:
-                                  TextStyle(color: Colors.grey.withOpacity(.8)),
-                              hintText: "Password"),
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
-            SizedBox(
-              height: 40,
-            ),
-            FadeAnimation(
-                1.8,
-                Center(
-                  child: Container(
-                    width: 120,
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        color: Colors.blue[800]),
-                    child: Center(
-                        child: Text(
-                      "Login",
-                      style: TextStyle(color: Colors.white.withOpacity(.7)),
-                    )),
-                  ),
-                )),
-          ],
-        ),
-      ),
-    );
-  }
-}
+// class LoginPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Login Page"),
+//       ),
+//       backgroundColor: Colors.grey.withOpacity(0.3),
+//       body: Container(
+//         padding: EdgeInsets.all(30),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             FadeAnimation(
+//                 1.2,
+//                 Text(
+//                   "Login",
+//                   style: TextStyle(
+//                       color: Colors.white,
+//                       fontSize: 40,
+//                       fontWeight: FontWeight.bold),
+//                 )),
+//             SizedBox(
+//               height: 30,
+//             ),
+//             FadeAnimation(
+//                 1.5,
+//                 Container(
+//                   padding: EdgeInsets.all(10),
+//                   decoration: BoxDecoration(
+//                       borderRadius: BorderRadius.circular(10),
+//                       color: Colors.white),
+//                   child: Column(
+//                     children: <Widget>[
+//                       Container(
+//                         decoration: BoxDecoration(
+//                             border: Border(
+//                                 bottom: BorderSide(color: Colors.grey[300]!))),
+//                         child: TextField(
+//                           decoration: InputDecoration(
+//                               border: InputBorder.none,
+//                               hintStyle:
+//                                   TextStyle(color: Colors.grey.withOpacity(.8)),
+//                               hintText: "Email or Phone number"),
+//                         ),
+//                       ),
+//                       Container(
+//                         decoration: BoxDecoration(),
+//                         child: TextField(
+//                           decoration: InputDecoration(
+//                               border: InputBorder.none,
+//                               hintStyle:
+//                                   TextStyle(color: Colors.grey.withOpacity(.8)),
+//                               hintText: "Password"),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 )),
+//             SizedBox(
+//               height: 40,
+//             ),
+//             FadeAnimation(
+//                 1.8,
+//                 Center(
+//                   child: Container(
+//                     width: 120,
+//                     padding: EdgeInsets.all(15),
+//                     decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(50),
+//                         color: Colors.blue[800]),
+//                     child: Center(
+//                         child: Text(
+//                       "Login",
+//                       style: TextStyle(color: Colors.white.withOpacity(.7)),
+//                     )),
+//                   ),
+//                 )),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 enum AnimationType { opacity, translateX }
 

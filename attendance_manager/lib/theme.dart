@@ -21,22 +21,20 @@ class AppTheme {
           textStyle: TextStyle(
               color: base.headline6!.color,
               fontSize: 20,
-              fontWeight: FontWeight.w500
-              )),
+              fontWeight: FontWeight.w500)),
       subtitle1: GoogleFonts.nunito(
           textStyle: TextStyle(color: base.subtitle1!.color, fontSize: 18)),
       subtitle2: GoogleFonts.nunito(
           textStyle: TextStyle(
               color: base.subtitle2!.color,
               fontSize: 14,
-              fontWeight: FontWeight.w500
-              )),
+              fontWeight: FontWeight.w500)),
       bodyText2: GoogleFonts.nunito(
           textStyle: TextStyle(
-              color: base.bodyText2!.color,
-              fontSize: 18,
-              // fontWeight: FontWeight.w700
-              )),
+        color: base.bodyText2!.color,
+        fontSize: 18,
+        // fontWeight: FontWeight.w700
+      )),
       bodyText1: GoogleFonts.nunito(
           textStyle: TextStyle(color: base.bodyText1!.color, fontSize: 16)),
       button: GoogleFonts.nunito(
@@ -72,7 +70,7 @@ class AppTheme {
     final ThemeData base = ThemeData.light();
     return base.copyWith(
         appBarTheme: AppBarTheme(
-          color: secondaryColor,
+          color: primaryColor,
         ),
         popupMenuTheme: PopupMenuThemeData(color: Colors.white),
         colorScheme: colorScheme,
@@ -93,7 +91,7 @@ class AppTheme {
         // cardTheme: _cardTheme(),
         textTheme: _buildTextTheme(base.textTheme),
         primaryTextTheme: _buildTextTheme(base.textTheme),
-        platform: TargetPlatform.android ,
+        platform: TargetPlatform.android,
         indicatorColor: primaryColor,
         disabledColor: HexColor("#D5D7D8"));
   }
@@ -127,8 +125,7 @@ class AppTheme {
       textTheme: _buildTextTheme(base.textTheme),
       primaryTextTheme: _buildTextTheme(base.primaryTextTheme),
       accentTextTheme: _buildTextTheme(base.accentTextTheme),
-      platform: TargetPlatform.android ,
-
+      platform: TargetPlatform.android,
     );
   }
 
