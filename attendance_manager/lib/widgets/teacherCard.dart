@@ -26,6 +26,7 @@ class TeacherNameCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
             Text(
               className,
               style: TextStyle(
