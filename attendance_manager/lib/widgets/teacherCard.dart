@@ -24,14 +24,10 @@ class TeacherNameCard extends StatelessWidget {
           // width: double.infinity,
           decoration: BoxDecoration(
               gradient: LinearGradient(begin: Alignment.centerLeft, stops: [
-            0.2,
-            0.5,
-            0.7,
+            0.3,
             1
           ], colors: [
             Colors.black38,
-            Colors.black26,
-            Colors.black12,
             // Color.fromRGBO(0, 0, 0, 0.0)
             Theme.of(context).primaryColor
             // Colors.white

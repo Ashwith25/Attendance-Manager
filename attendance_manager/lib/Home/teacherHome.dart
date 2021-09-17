@@ -89,17 +89,25 @@ class _TeacherHomeState extends State<TeacherHome> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                    height: size.height * .6,
-                    width: size.width,
-                    child: ListView.builder(
-                        padding:
-                            EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                        itemCount: 10,
-                        itemBuilder: (context, index) => TeacherNameCard(
-                              className: "Class ${index + 1}",
-                              studentCount: index + 10,
-                            )))
+                for (int i = 0; i < 10; i++)
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    child: TeacherNameCard(
+                      className: "Class ${i + 1}",
+                      studentCount: i + 10,
+                    ),
+                  )
+                // Container(
+                //     height: size.height * .7,
+                //     width: size.width,
+                //     child: ListView.builder(
+                //         padding:
+                //             EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                //         itemCount: 10,
+                //         itemBuilder: (context, index) => TeacherNameCard(
+                //               className: "Class ${index + 1}",
+                //               studentCount: index + 10,
+                //             )))
               ],
             ),
           ),
