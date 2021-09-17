@@ -2,6 +2,7 @@ import 'package:attendance_manager/auth/change_password.dart';
 import 'package:flutter/material.dart';
 import 'package:attendance_manager/constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+// import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -37,6 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
           centerTitle: false,
           actions: [
             IconButton(
+              color: Colors.white,
               icon: !isEditing ? Icon(Icons.edit) : Icon(Icons.close),
               onPressed: () {
                 isEditing = !isEditing;
@@ -44,6 +46,13 @@ class _ProfilePageState extends State<ProfilePage> {
               },
             )
           ],
+          leading: IconButton(
+            color: Colors.white,
+            icon: Icon(Icons.arrow_back_ios_outlined),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           elevation: 10,
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(

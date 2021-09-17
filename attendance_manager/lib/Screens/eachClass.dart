@@ -1,13 +1,12 @@
-import 'package:attendance_manager/Screens/markAttendance.dart';
 import 'package:attendance_manager/constants.dart';
-import 'package:attendance_manager/theme.dart';
 import 'package:attendance_manager/widgets/chart.dart';
-import 'package:attendance_manager/widgets/homeScreenCard.dart';
 import 'package:attendance_manager/widgets/nameCard.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+// import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+
+import 'markAttendance.dart';
 
 class EachClass extends StatefulWidget {
   const EachClass({Key? key}) : super(key: key);
@@ -19,10 +18,21 @@ class EachClass extends StatefulWidget {
 class _EachClassState extends State<EachClass> {
   MaterialBanner materialBanner(BuildContext context) {
     return MaterialBanner(
-        content: Text("Do you want to remove this student?"),
+        content: const Text("Do you want to remove this student?"),
         actions: [
-          TextButton(onPressed: () {}, child: Text("Yes")),
-          TextButton(onPressed: () {}, child: Text("No")),
+          TextButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+              },
+              child: Text(
+                "Yes",
+                style: TextStyle(color: Theme.of(context).errorColor),
+              )),
+          TextButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+              },
+              child: const Text("No")),
         ]);
   }
 
@@ -38,6 +48,13 @@ class _EachClassState extends State<EachClass> {
           centerTitle: false,
           // leadingWidth: 0,
           elevation: 10,
+          leading: IconButton(
+            color: Colors.white,
+            icon: Icon(Icons.arrow_back_ios_outlined),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           // leading: Container(
           //   width: 0,
           // ),
@@ -204,7 +221,8 @@ class _EachClassState extends State<EachClass> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            // Scaffold.of()
+                            ScaffoldMessenger.of(context)
+                                .showMaterialBanner(materialBanner(context));
                           },
                           child: Container(
                               margin: EdgeInsets.only(right: 20, top: 10),
@@ -278,11 +296,17 @@ class _EachClassState extends State<EachClass> {
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              "Add new student",
-                              style:
-                                  TextStyle(color: goldenColor, fontSize: 25),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              child: FittedBox(
+                                child: Text(
+                                  "Add new student",
+                                  style: TextStyle(
+                                      color: goldenColor, fontSize: 25),
+                                ),
+                              ),
                             ),
                             InkWell(
                               onTap: () {
@@ -388,6 +412,7 @@ class _EachClassState extends State<EachClass> {
                         Container(
                           // padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                           child: TextFormField(
+                              controller: _nameController,
                               readOnly: true,
                               validator: (value) {
                                 if (value!.isEmpty) {
