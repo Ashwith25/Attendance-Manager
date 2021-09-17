@@ -219,6 +219,13 @@ class _EachClassState extends State<EachClass> {
     "mhatrechisa18it@student.mes.ac.in",
   ];
 
+  Map name = {
+    "ashwith": "poojaryashan18it@student.mes.ac.in",
+    "manasi": "variarmanra18it@student.mes.ac.in",
+    "ritika": "ritikarad18it@student.mes.ac.in",
+    "chinmay": "mhatrechisa18it@student.mes.ac.in",
+  };
+
   searchEmail() {
     if (_emailController.text.isEmpty) {
       return [];
@@ -326,7 +333,14 @@ class _EachClassState extends State<EachClass> {
                           itemBuilder: (context, suggestion) {
                             return GestureDetector(
                               onTap: () {
-                                print(suggestion);
+                                _emailController.text = suggestion as String;
+                                name.forEach((key, value) {
+                                  if (value.toString().toLowerCase() ==
+                                      suggestion.toString().toLowerCase()) {
+                                    _nameController.text =
+                                        key.toString().toUpperCase();
+                                  }
+                                });
                               },
                               child: Container(
                                 height: 75,
@@ -351,7 +365,9 @@ class _EachClassState extends State<EachClass> {
                               (context, suggestionsBox, controller) {
                             return suggestionsBox;
                           },
-                          onSuggestionSelected: (suggestion) {},
+                          onSuggestionSelected: (suggestion) {
+                            _emailController.text = suggestion as String;
+                          },
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Email cannot be empty";
@@ -365,7 +381,8 @@ class _EachClassState extends State<EachClass> {
                         Container(
                           // padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                           child: TextFormField(
-                            readOnly: true,
+                            controller: _nameController,
+                              readOnly: true,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Name cannot be empty";
