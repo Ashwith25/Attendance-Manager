@@ -1,7 +1,7 @@
 import 'package:attendance_manager/Screens/addNewClass.dart';
 import 'package:attendance_manager/Screens/eachClass.dart';
+import 'package:attendance_manager/Screens/profile.dart';
 import 'package:attendance_manager/constants.dart';
-import 'package:attendance_manager/profile.dart';
 import 'package:attendance_manager/widgets/homeScreenCard.dart';
 import 'package:attendance_manager/widgets/nameCard.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +87,7 @@ class _TeacherHomeState extends State<TeacherHome> {
                                   builder: (context) => AddNewClassPage()));
                         },
                         child: HomeScreenCard(
-                          title: "Add class",
+                          title: "Add Class",
                           // icon: 'assets/add.png',
                           icon: Icons.add,
                         ),

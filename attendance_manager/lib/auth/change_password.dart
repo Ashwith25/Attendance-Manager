@@ -17,9 +17,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   TextEditingController _confirm = TextEditingController();
 
   bool _passwordVisible = false;
+  bool _passwordVisible1 = false;
+  bool _passwordVisible2 = false;
   final _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
+    super.initState();
     _passwordVisible = false;
   }
 
@@ -49,7 +53,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   style: TextStyle(
                       fontSize: 45,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                      color: goldenColor),
                 ),
                 // SizedBox(
                 //   height: 10,
@@ -64,6 +68,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         return null;
                       },
                       style: TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
                       decoration: InputDecoration(
                           helperStyle: TextStyle(color: Colors.white),
                           focusedBorder: OutlineInputBorder(
@@ -89,6 +94,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     },
                     obscureText: !_passwordVisible,
                     style: TextStyle(color: Colors.white),
+                    
                     cursorColor: Colors.white,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
@@ -124,25 +130,23 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Password can't be empty";
-                      } else if (value.trim().length < 8) {
-                        return 'Password must be atleast 8 charcters long';
                       }
                       return null;
                     },
-                    obscureText: !_passwordVisible,
+                    obscureText: !_passwordVisible2,
                     style: TextStyle(color: Colors.white),
                     cursorColor: Colors.white,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _passwordVisible
+                          _passwordVisible2
                               ? Icons.visibility
                               : Icons.visibility_off,
                           color: Colors.white,
                         ),
                         onPressed: () {
                           setState(() {
-                            _passwordVisible = !_passwordVisible;
+                            _passwordVisible2 = !_passwordVisible2;
                           });
                         },
                       ),
@@ -170,20 +174,20 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       }
                       return null;
                     },
-                    obscureText: !_passwordVisible,
+                    obscureText: !_passwordVisible1,
                     style: TextStyle(color: Colors.white),
                     cursorColor: Colors.white,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _passwordVisible
+                          _passwordVisible1
                               ? Icons.visibility
                               : Icons.visibility_off,
                           color: Colors.white,
                         ),
                         onPressed: () {
                           setState(() {
-                            _passwordVisible = !_passwordVisible;
+                            _passwordVisible1 = !_passwordVisible1;
                           });
                         },
                       ),
@@ -204,7 +208,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   child: MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
-                    color: Colors.white,
+                    color: goldenColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     child: Text(

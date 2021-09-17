@@ -4,7 +4,9 @@ import 'package:attendance_manager/widgets/chart.dart';
 import 'package:attendance_manager/widgets/homeScreenCard.dart';
 import 'package:attendance_manager/widgets/nameCard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class EachClass extends StatefulWidget {
   const EachClass({Key? key}) : super(key: key);
@@ -14,6 +16,9 @@ class EachClass extends StatefulWidget {
 }
 
 class _EachClassState extends State<EachClass> {
+  final _emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -155,10 +160,13 @@ class _EachClassState extends State<EachClass> {
                           color: goldenColor,
                         ),
                       ),
-                      Icon(
-                        Icons.add,
-                        size: 25,
-                        color: goldenColor,
+                      GestureDetector(
+                        onTap: popUp,
+                        child: Icon(
+                          Icons.add,
+                          size: 25,
+                          color: goldenColor,
+                        ),
                       )
                     ],
                   ),
@@ -201,6 +209,224 @@ class _EachClassState extends State<EachClass> {
           ),
         ),
       ),
+    );
+  }
+
+  List emails = [
+    "poojaryashan18it@student.mes.ac.in",
+    "variarmanra18it@student.mes.ac.in",
+    "ritikarad18it@student.mes.ac.in",
+    "mhatrechisa18it@student.mes.ac.in",
+  ];
+
+  searchEmail() {
+    if (_emailController.text.isEmpty) {
+      return [];
+    }
+    // print('My med list: ${searchApi.medList}');
+
+    return emails.where(
+      (email) => email
+          .toString()
+          .toLowerCase()
+          .contains(_emailController.text.toLowerCase()),
+    );
+  }
+
+  popUp() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder:
+              (BuildContext context, void Function(void Function()) setState) {
+            return AlertDialog(
+              backgroundColor: Theme.of(context).primaryColor,
+              content: Container(
+                height: 400,
+                color: Theme.of(context).primaryColor,
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Add new student",
+                              style:
+                                  TextStyle(color: goldenColor, fontSize: 25),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(
+                                Icons.close,
+                                size: 35,
+                                color: goldenColor,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TypeAheadFormField(
+                          textFieldConfiguration: TextFieldConfiguration(
+                              controller: _emailController,
+                              textInputAction: TextInputAction.done,
+                              textAlign: TextAlign.start,
+                              keyboardType: TextInputType.text,
+                              maxLines: 1,
+                              // autofocus: true,
+                              style: TextStyle(color: Colors.white),
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(30),
+                              ],
+                              cursorColor: Colors.white,
+                              decoration: InputDecoration(
+                                  helperStyle: TextStyle(color: Colors.white),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  border: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  labelText: "Student email",
+                                  labelStyle: TextStyle(color: Colors.white))),
+                          suggestionsCallback: (pattern) async {
+                            return searchEmail();
+                          },
+                          noItemsFoundBuilder: (ctx) => Container(
+                            height: 75,
+                            child: Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "No suggestions",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          // validator: _validateStockName,
+                          itemBuilder: (context, suggestion) {
+                            return GestureDetector(
+                              onTap: () {
+                                print(suggestion);
+                              },
+                              child: Container(
+                                height: 75,
+                                child: Card(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        suggestion as String,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          transitionBuilder:
+                              (context, suggestionsBox, controller) {
+                            return suggestionsBox;
+                          },
+                          onSuggestionSelected: (suggestion) {},
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Email cannot be empty";
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          // padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                          child: TextFormField(
+                            readOnly: true,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Name cannot be empty";
+                                }
+                                return null;
+                              },
+                              style: TextStyle(color: Colors.white),
+                              cursorColor: Colors.white,
+                              // enableInteractiveSelection: true,
+                              decoration: InputDecoration(
+                                  helperText: "This will autofill",
+                                  helperStyle: TextStyle(color: Colors.white),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  border: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.white)),
+                                  labelText: "Student name",
+                                  labelStyle: TextStyle(color: Colors.white))),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                          child: MaterialButton(
+                            minWidth: double.infinity,
+                            height: 60,
+                            color: goldenColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(
+                              "Add student",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                              ),
+                            ),
+                            onPressed: () {
+                              if (_formKey.currentState!.validate())
+                                Navigator.of(context).pop();
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => TeacherHome()));
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
