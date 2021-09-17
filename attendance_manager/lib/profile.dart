@@ -1,6 +1,7 @@
 import 'package:attendance_manager/Home/teacherHome.dart';
 import 'package:attendance_manager/auth/change_password.dart';
 import 'package:attendance_manager/auth/signup.dart';
+import 'package:attendance_manager/widgets/homeScreenCard.dart';
 import 'package:flutter/material.dart';
 import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/theme.dart';
@@ -23,16 +24,17 @@ class _ProfilePageState extends State<ProfilePage> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
+          actions: [
+            IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TeacherHome()));
+              },
+            )
+          ],
           elevation: 10,
           backgroundColor: Theme.of(context).primaryColor,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back_ios),
-            iconSize: 20,
-            color: Colors.white,
-          ),
           title: Text(
             'Profile',
             style: TextStyle(
@@ -67,6 +69,16 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ),
+                // Neumorphic(
+                //   margin: EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+                //   style: NeumorphicStyle(border:  ),
+
+                // HomeScreenCard(
+                //   icon: IconButton(
+                //     icon: Icon(Icons.person_add_alt_1_rounded),
+                //     onPressed: () {},
+                //   ),
+                // ),
                 Form(
                   key: _formKey,
                   child: Column(

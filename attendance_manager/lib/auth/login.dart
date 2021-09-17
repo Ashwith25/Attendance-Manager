@@ -30,14 +30,6 @@ class _LoginPageState extends State<LoginPage> {
           elevation: 0,
           backgroundColor: Theme.of(context).primaryColor,
           leading: Container(),
-          // leading: IconButton(
-          //   onPressed: () {
-          //     Navigator.pop(context);
-          //   },
-          //   icon: Icon(Icons.arrow_back_ios),
-          //   iconSize: 20,
-          //   color: Colors.white,
-          // ),
         ),
         body: Container(
             height: MediaQuery.of(context).size.height,
