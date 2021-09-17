@@ -1,9 +1,11 @@
+// ignore: file_names
 import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/widgets/chart.dart';
 import 'package:attendance_manager/widgets/nameCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+// import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class EachClass extends StatefulWidget {
@@ -14,6 +16,15 @@ class EachClass extends StatefulWidget {
 }
 
 class _EachClassState extends State<EachClass> {
+  MaterialBanner materialBanner(BuildContext context) {
+    return MaterialBanner(
+        content: const Text("Do you want to remove this student?"),
+        actions: [
+          TextButton(onPressed: () {}, child: const Text("Yes")),
+          TextButton(onPressed: () {}, child: const Text("No")),
+        ]);
+  }
+
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
@@ -182,12 +193,18 @@ class _EachClassState extends State<EachClass> {
                           title: "Student ${i + 1}",
                           subtitle: "student${i + 1}@student.mes.ac.in",
                         ),
-                        Container(
-                            margin: EdgeInsets.only(right: 20, top: 10),
-                            child: Icon(
-                              Icons.remove_circle_outline,
-                              color: Theme.of(context).errorColor,
-                            ))
+                        GestureDetector(
+                          onTap: () {
+                            ScaffoldMessenger.of(context)
+                                .showMaterialBanner(materialBanner(context));
+                          },
+                          child: Container(
+                              margin: EdgeInsets.only(right: 20, top: 10),
+                              child: Icon(
+                                Icons.remove_circle_outline,
+                                color: Theme.of(context).errorColor,
+                              )),
+                        )
                       ],
                     ),
                   )
@@ -267,8 +284,8 @@ class _EachClassState extends State<EachClass> {
                               child: FittedBox(
                                 child: Text(
                                   "Add new student",
-                                  style:
-                                      TextStyle(color: goldenColor, fontSize: 25),
+                                  style: TextStyle(
+                                      color: goldenColor, fontSize: 25),
                                 ),
                               ),
                             ),
@@ -385,7 +402,7 @@ class _EachClassState extends State<EachClass> {
                         Container(
                           // padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                           child: TextFormField(
-                            controller: _nameController,
+                              controller: _nameController,
                               readOnly: true,
                               validator: (value) {
                                 if (value!.isEmpty) {

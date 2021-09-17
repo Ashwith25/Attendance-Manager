@@ -169,7 +169,7 @@ class BarChartState extends State<AttendanceBarChart> {
           showTitles: true,
           getTextStyles: (value, _) => TextStyle(
               color: goldenColor, fontWeight: FontWeight.bold, fontSize: 13),
-          margin: 10,
+          // margin: 10,
           getTitles: (double value) {
             switch (value.toInt()) {
               case 0:

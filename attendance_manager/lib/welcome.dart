@@ -5,6 +5,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:attendance_manager/auth/login.dart';
 import 'package:attendance_manager/auth/signup.dart';
+// import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 
 class SplashScreen6 extends StatefulWidget {
   @override

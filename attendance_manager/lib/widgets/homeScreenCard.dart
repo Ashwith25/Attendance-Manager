@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:attendance_manager/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+// import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 
 class HomeScreenCard extends StatelessWidget {
   final title;
@@ -10,7 +13,7 @@ class HomeScreenCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Neumorphic(
-      margin: EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
       style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(10)),
