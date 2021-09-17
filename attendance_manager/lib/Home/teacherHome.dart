@@ -1,3 +1,4 @@
+import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/widgets/homeScreenCard.dart';
 import 'package:attendance_manager/widgets/teacherCard.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,8 @@ class _TeacherHomeState extends State<TeacherHome> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: false,
+          leadingWidth: 0,
           elevation: 10,
           leading: Container(
             width: 0,
@@ -35,6 +38,7 @@ class _TeacherHomeState extends State<TeacherHome> {
           width: size.width,
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
+            // color: Colors.grey,
             // color: Colors.red
           ),
           child: SingleChildScrollView(
@@ -46,7 +50,7 @@ class _TeacherHomeState extends State<TeacherHome> {
                   style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: goldenColor,
                   ),
                 ),
                 Text(
@@ -54,7 +58,7 @@ class _TeacherHomeState extends State<TeacherHome> {
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: goldenColor,
                   ),
                 ),
                 SizedBox(
@@ -67,16 +71,18 @@ class _TeacherHomeState extends State<TeacherHome> {
                     children: [
                       HomeScreenCard(
                         title: "Add class",
-                        icon: 'assets/add.png',
+                        // icon: 'assets/add.png',
+                        icon: Icons.add,
                       ),
                       HomeScreenCard(
                         title: "Profile",
-                        icon: 'assets/profile.png',
+                        // icon: 'assets/profile.png',
+                        icon: Icons.person_outline_outlined,
                       ),
                       HomeScreenCard(
-                        title: "Logout",
-                        icon: 'assets/logout.png',
-                      ),
+                          title: "Logout",
+                          // icon: 'assets/logout.png',
+                          icon: Icons.logout),
                     ],
                   ),
                 ),
@@ -84,22 +90,16 @@ class _TeacherHomeState extends State<TeacherHome> {
                   height: 20,
                 ),
                 Container(
-                  height: size.height * .6,
-                  width: size.width,
-                  child: Card(
-                      color: Colors.white,
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: ListView.builder(
-                          padding:
-                              EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                          itemCount: 10,
-                          itemBuilder: (context, index) => TeacherNameCard(
-                                className: "Class ${index + 1}",
-                                studentCount: index + 10,
-                              ))),
-                )
+                    height: size.height * .6,
+                    width: size.width,
+                    child: ListView.builder(
+                        padding:
+                            EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                        itemCount: 10,
+                        itemBuilder: (context, index) => TeacherNameCard(
+                              className: "Class ${index + 1}",
+                              studentCount: index + 10,
+                            )))
               ],
             ),
           ),
