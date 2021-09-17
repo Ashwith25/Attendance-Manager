@@ -1,7 +1,5 @@
 import 'package:attendance_manager/auth/login.dart';
 import 'package:attendance_manager/constants.dart';
-import 'package:attendance_manager/theme.dart';
-import 'package:attendance_manager/welcome.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
@@ -16,11 +14,8 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController _confirm = TextEditingController();
 
   bool _passwordVisible = false;
+  bool _passwordVisible1 = false;
   final _formKey = GlobalKey<FormState>();
-  @override
-  void initState() {
-    _passwordVisible = false;
-  }
 
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,7 +25,7 @@ class _SignupPageState extends State<SignupPage> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Theme.of(context).primaryColor,
-          leading: Container(),
+          // leading: Container(),
         ),
         body: Container(
           height: MediaQuery.of(context).size.height,
@@ -48,7 +43,7 @@ class _SignupPageState extends State<SignupPage> {
                   style: TextStyle(
                       fontSize: 50,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                      color: goldenColor),
                 ),
                 // SizedBox(
                 //   height: 10,
@@ -102,8 +97,6 @@ class _SignupPageState extends State<SignupPage> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Password can't be empty";
-                      } else if (value.trim().length < 8) {
-                        return 'Password must be atleast 8 charcters long';
                       }
                       return null;
                     },
@@ -148,20 +141,20 @@ class _SignupPageState extends State<SignupPage> {
                       }
                       return null;
                     },
-                    obscureText: !_passwordVisible,
+                    obscureText: !_passwordVisible1,
                     style: TextStyle(color: Colors.white),
                     cursorColor: Colors.white,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _passwordVisible
+                          _passwordVisible1
                               ? Icons.visibility
                               : Icons.visibility_off,
                           color: Colors.white,
                         ),
                         onPressed: () {
                           setState(() {
-                            _passwordVisible = !_passwordVisible;
+                            _passwordVisible1 = !_passwordVisible1;
                           });
                         },
                       ),
@@ -182,7 +175,7 @@ class _SignupPageState extends State<SignupPage> {
                   child: MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
-                    color: Colors.white,
+                    color: goldenColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
                     child: Text(

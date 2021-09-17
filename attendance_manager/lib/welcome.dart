@@ -1,3 +1,4 @@
+import 'package:attendance_manager/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:page_transition/page_transition.dart';
@@ -97,7 +98,7 @@ class _SplashScreen6State extends State<SplashScreen6>
                   1,
                   Text(
                     "Welcome",
-                    style: TextStyle(color: Colors.white, fontSize: 50),
+                    style: TextStyle(color: goldenColor, fontSize: 50),
                   )),
               SizedBox(
                 height: 15,
@@ -174,7 +175,7 @@ class _SplashScreen6State extends State<SplashScreen6>
                                                               Icons
                                                                   .arrow_forward,
                                                               color:
-                                                                  Colors.white,
+                                                                  goldenColor,
                                                             )
                                                           : Container(),
                                                     ),

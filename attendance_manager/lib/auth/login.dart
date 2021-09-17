@@ -2,7 +2,6 @@ import 'package:attendance_manager/Home/teacherHome.dart';
 import 'package:attendance_manager/auth/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:attendance_manager/constants.dart';
-import 'package:attendance_manager/theme.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -16,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
+    super.initState();
     _passwordVisible = false;
   }
 
@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                       fontSize: 50,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: goldenColor,
                     ),
                   ),
                   SizedBox(
@@ -83,8 +83,6 @@ class _LoginPageState extends State<LoginPage> {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Password can't be empty";
-                          } else if (value.trim().length < 8) {
-                            return 'Password must be atleast 8 charcters long';
                           }
                           return null;
                         },
@@ -121,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 60,
-                      color: Colors.white,
+                      color: goldenColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
                       child: Text(
