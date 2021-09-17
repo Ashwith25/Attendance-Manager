@@ -183,8 +183,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       Container(
                         padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                         child: MaterialButton(
-                          minWidth: double.infinity,
-                          height: 60,
+                          minWidth: 100,
+                          height: 40,
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5)),

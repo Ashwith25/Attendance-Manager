@@ -1,6 +1,7 @@
 import 'package:attendance_manager/Home/teacherHome.dart';
 import 'package:attendance_manager/auth/change_password.dart';
 import 'package:attendance_manager/auth/signup.dart';
+import 'package:attendance_manager/profile.dart';
 import 'package:attendance_manager/widgets/homeScreenCard.dart';
 import 'package:flutter/material.dart';
 import 'package:attendance_manager/constants.dart';
@@ -26,17 +27,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
         appBar: AppBar(
           actions: [
             IconButton(
-              icon: Icon(Icons.cancel),
+              icon: Icon(Icons.close),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TeacherHome()));
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
               },
             )
           ],
           elevation: 10,
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(
-            'Profile',
+            'Edit Profile',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
