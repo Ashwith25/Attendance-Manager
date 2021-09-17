@@ -1,3 +1,4 @@
+import 'package:attendance_manager/Screens/addNewClass.dart';
 import 'package:attendance_manager/Screens/eachClass.dart';
 import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/profile.dart';
@@ -78,10 +79,18 @@ class _TeacherHomeState extends State<TeacherHome> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      HomeScreenCard(
-                        title: "Add class",
-                        // icon: 'assets/add.png',
-                        icon: Icons.add,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AddNewClassPage()));
+                        },
+                        child: HomeScreenCard(
+                          title: "Add class",
+                          // icon: 'assets/add.png',
+                          icon: Icons.add,
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {

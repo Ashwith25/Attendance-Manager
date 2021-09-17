@@ -107,6 +107,28 @@ class _ProfilePageState extends State<ProfilePage> {
                                         BorderSide(color: Colors.white)),
                                 labelText: "College Email Address",
                                 labelStyle: TextStyle(color: Colors.white))),
+                        //   child: TextFormField(
+                        //       validator: (value) {
+                        //         if (value!.isEmpty) {
+                        //           return "Email Address can't be empty";
+                        //         }
+                        //         return null;
+                        //       },
+
+                        //       style: TextStyle(color: Colors.white),
+                        //       decoration: InputDecoration(
+                        //           helperStyle: TextStyle(color: Colors.white),
+                        //           focusedBorder: OutlineInputBorder(
+                        //               borderSide:
+                        //                   BorderSide(color: Colors.white)),
+                        //           enabledBorder: OutlineInputBorder(
+                        //               borderSide:
+                        //                   BorderSide(color: Colors.white)),
+                        //           border: OutlineInputBorder(
+                        //               borderSide:
+                        //                   BorderSide(color: Colors.white)),
+                        //           labelText: "College Email Address",
+                        //           labelStyle: TextStyle(color: Colors.white))),
                       ),
                       Container(
                         padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
