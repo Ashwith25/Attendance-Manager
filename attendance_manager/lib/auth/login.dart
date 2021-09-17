@@ -19,6 +19,8 @@ class _LoginPageState extends State<LoginPage> {
     _passwordVisible = false;
   }
 
+  final textSelectionControl = TextSelectionControls;
+
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -68,6 +70,9 @@ class _LoginPageState extends State<LoginPage> {
                         return null;
                       },
                       style: TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
+                      // enableInteractiveSelection: false,
+                      // showCursor: true,
                       decoration: InputDecoration(
                           helperStyle: TextStyle(color: Colors.white),
                           focusedBorder: OutlineInputBorder(
@@ -90,6 +95,8 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       obscureText: !_passwordVisible,
                       style: TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
+                      // enableInteractiveSelection: true,
                       decoration: InputDecoration(
                           suffixIcon: IconButton(
                             icon: Icon(
