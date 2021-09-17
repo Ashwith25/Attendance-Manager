@@ -18,14 +18,12 @@ class HomeScreenCard extends StatelessWidget {
           lightSource: LightSource.topLeft,
           color: Theme.of(context).primaryColor),
       child: Container(
-        height: 100,
+        height: 75,
         // width: MediaQuery.of(context).size.width * 0.45,
-        width: 200,
-        child: Card(
-          color: Theme.of(context).primaryColor,
-          elevation: 2,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        width: 150,
+        padding: EdgeInsets.all(10),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

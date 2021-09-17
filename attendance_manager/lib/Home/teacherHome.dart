@@ -58,12 +58,13 @@ class _TeacherHomeState extends State<TeacherHome> {
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: goldenColor,
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
+                
                 SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
@@ -88,6 +89,17 @@ class _TeacherHomeState extends State<TeacherHome> {
                 ),
                 SizedBox(
                   height: 20,
+                ),
+                Text(
+                  "Your classes",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: goldenColor,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 for (int i = 0; i < 10; i++)
                   Padding(

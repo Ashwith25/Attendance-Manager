@@ -1,4 +1,5 @@
 import 'package:attendance_manager/Home/teacherHome.dart';
+import 'package:attendance_manager/auth/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/theme.dart';
@@ -82,7 +83,6 @@ class _LoginPageState extends State<LoginPage> {
                         // enableInteractiveSelection: false,
                         // showCursor: true,
                         decoration: InputDecoration(
-                            fillColor: Colors.white,
                             helperStyle: TextStyle(color: Colors.white),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)),
@@ -168,10 +168,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TeacherHome()));
+                         Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignupPage()));
                         },
                         child: Text(
                           "Signup",

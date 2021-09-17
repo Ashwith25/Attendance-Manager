@@ -1,3 +1,4 @@
+import 'package:attendance_manager/constants.dart';
 import 'package:flutter/material.dart';
 
 class NameCard extends StatelessWidget {
@@ -43,7 +44,7 @@ class NameCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: goldenColor,
                   ),
                 ),
                 Text(
@@ -51,7 +52,7 @@ class NameCard extends StatelessWidget {
                   // style:
                   style: TextStyle(
                     fontSize: 15,
-                    fontWeight: FontWeight.w300,
+                    fontWeight: FontWeight.w100,
                     // fontWeight: FontWeight.,
                     color: Colors.white,
                   ),
