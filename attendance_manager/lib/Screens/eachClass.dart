@@ -17,6 +17,15 @@ class EachClass extends StatefulWidget {
 }
 
 class _EachClassState extends State<EachClass> {
+  MaterialBanner materialBanner(BuildContext context) {
+    return MaterialBanner(
+        content: Text("Do you want to remove this student?"),
+        actions: [
+          TextButton(onPressed: () {}, child: Text("Yes")),
+          TextButton(onPressed: () {}, child: Text("No")),
+        ]);
+  }
+
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
@@ -36,12 +45,16 @@ class _EachClassState extends State<EachClass> {
             Container(
               margin: EdgeInsets.only(right: 20),
               child: IconButton(
-                icon: Icon(Icons.add, size: 30, color: Colors.white,),
+                icon: Icon(
+                  Icons.add,
+                  size: 30,
+                  color: Colors.white,
+                ),
                 onPressed: () {
                   Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MarkAttendancePage()));
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MarkAttendancePage()));
                 },
               ),
             )
@@ -189,12 +202,17 @@ class _EachClassState extends State<EachClass> {
                           title: "Student ${i + 1}",
                           subtitle: "student${i + 1}@student.mes.ac.in",
                         ),
-                        Container(
-                            margin: EdgeInsets.only(right: 20, top: 10),
-                            child: Icon(
-                              Icons.remove_circle_outline,
-                              color: Theme.of(context).errorColor,
-                            ))
+                        GestureDetector(
+                          onTap: () {
+                            // Scaffold.of()
+                          },
+                          child: Container(
+                              margin: EdgeInsets.only(right: 20, top: 10),
+                              child: Icon(
+                                Icons.remove_circle_outline,
+                                color: Theme.of(context).errorColor,
+                              )),
+                        )
                       ],
                     ),
                   )
@@ -370,7 +388,7 @@ class _EachClassState extends State<EachClass> {
                         Container(
                           // padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                           child: TextFormField(
-                            readOnly: true,
+                              readOnly: true,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Name cannot be empty";
