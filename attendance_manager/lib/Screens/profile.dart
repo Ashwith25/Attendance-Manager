@@ -38,6 +38,7 @@ class _ProfilePageState extends State<ProfilePage> {
           centerTitle: false,
           actions: [
             IconButton(
+              color: Colors.white,
               icon: !isEditing ? Icon(Icons.edit) : Icon(Icons.close),
               onPressed: () {
                 isEditing = !isEditing;
@@ -45,6 +46,13 @@ class _ProfilePageState extends State<ProfilePage> {
               },
             )
           ],
+          leading: IconButton(
+            color: Colors.white,
+            icon: Icon(Icons.arrow_back_ios_outlined),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           elevation: 10,
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(

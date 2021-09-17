@@ -1,12 +1,12 @@
-// ignore: file_names
 import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/widgets/chart.dart';
 import 'package:attendance_manager/widgets/nameCard.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 // import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+
+import 'markAttendance.dart';
 
 class EachClass extends StatefulWidget {
   const EachClass({Key? key}) : super(key: key);
@@ -48,16 +48,31 @@ class _EachClassState extends State<EachClass> {
           centerTitle: false,
           // leadingWidth: 0,
           elevation: 10,
+          leading: IconButton(
+            color: Colors.white,
+            icon: Icon(Icons.arrow_back_ios_outlined),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           // leading: Container(
           //   width: 0,
           // ),
           actions: [
             Container(
               margin: EdgeInsets.only(right: 20),
-              child: Icon(
-                Icons.add,
-                size: 30,
-                color: Colors.white,
+              child: IconButton(
+                icon: Icon(
+                  Icons.add,
+                  size: 30,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MarkAttendancePage()));
+                },
               ),
             )
           ],
@@ -245,13 +260,6 @@ class _EachClassState extends State<EachClass> {
     "mhatrechisa18it@student.mes.ac.in",
   ];
 
-  Map name = {
-    "ashwith": "poojaryashan18it@student.mes.ac.in",
-    "manasi": "variarmanra18it@student.mes.ac.in",
-    "ritika": "ritikarad18it@student.mes.ac.in",
-    "chinmay": "mhatrechisa18it@student.mes.ac.in",
-  };
-
   searchEmail() {
     if (_emailController.text.isEmpty) {
       return [];
@@ -365,14 +373,7 @@ class _EachClassState extends State<EachClass> {
                           itemBuilder: (context, suggestion) {
                             return GestureDetector(
                               onTap: () {
-                                _emailController.text = suggestion as String;
-                                name.forEach((key, value) {
-                                  if (value.toString().toLowerCase() ==
-                                      suggestion.toString().toLowerCase()) {
-                                    _nameController.text =
-                                        key.toString().toUpperCase();
-                                  }
-                                });
+                                print(suggestion);
                               },
                               child: Container(
                                 height: 75,
@@ -397,9 +398,7 @@ class _EachClassState extends State<EachClass> {
                               (context, suggestionsBox, controller) {
                             return suggestionsBox;
                           },
-                          onSuggestionSelected: (suggestion) {
-                            _emailController.text = suggestion as String;
-                          },
+                          onSuggestionSelected: (suggestion) {},
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Email cannot be empty";
