@@ -1,4 +1,5 @@
 import 'package:attendance_manager/constants.dart';
+import 'package:attendance_manager/profile.dart';
 import 'package:attendance_manager/widgets/homeScreenCard.dart';
 import 'package:attendance_manager/widgets/teacherCard.dart';
 import 'package:flutter/material.dart';
@@ -74,10 +75,18 @@ class _TeacherHomeState extends State<TeacherHome> {
                         // icon: 'assets/add.png',
                         icon: Icons.add,
                       ),
-                      HomeScreenCard(
-                        title: "Profile",
-                        // icon: 'assets/profile.png',
-                        icon: Icons.person_outline_outlined,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfilePage()));
+                        },
+                        child: HomeScreenCard(
+                          title: "Profile",
+                          // icon: 'assets/profile.png',
+                          icon: Icons.person_outline_outlined,
+                        ),
                       ),
                       HomeScreenCard(
                           title: "Logout",
