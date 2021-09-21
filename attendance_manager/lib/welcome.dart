@@ -4,10 +4,10 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:simple_animations/simple_animations.dart';
 import 'package:attendance_manager/auth/login.dart';
-import 'package:attendance_manager/auth/signup.dart';
-// import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 
 class SplashScreen6 extends StatefulWidget {
+  const SplashScreen6({Key? key}) : super(key: key);
+
   @override
   _SplashScreen6State createState() => _SplashScreen6State();
 }
@@ -31,7 +31,7 @@ class _SplashScreen6State extends State<SplashScreen6>
     super.initState();
 
     _scaleController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
 
     _scaleAnimation =
         Tween<double>(begin: 1.0, end: 0.8).animate(_scaleController)
@@ -42,7 +42,7 @@ class _SplashScreen6State extends State<SplashScreen6>
           });
 
     _widthController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
 
     _widthAnimation =
         Tween<double>(begin: 80.0, end: 300.0).animate(_widthController)
@@ -53,7 +53,7 @@ class _SplashScreen6State extends State<SplashScreen6>
           });
 
     _positionController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1000));
+        vsync: this, duration: const Duration(milliseconds: 1000));
 
     _positionAnimation =
         Tween<double>(begin: 0.0, end: 215.0).animate(_positionController)
@@ -67,7 +67,7 @@ class _SplashScreen6State extends State<SplashScreen6>
           });
 
     _scale2Controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
 
     _scale2Animation =
         Tween<double>(begin: 1.0, end: 32.0).animate(_scale2Controller)
@@ -76,21 +76,19 @@ class _SplashScreen6State extends State<SplashScreen6>
               Navigator.pushReplacement(
                   context,
                   PageTransition(
-                      type: PageTransitionType.fade, child: LoginPage()));
+                      type: PageTransitionType.fade, child: const LoginPage()));
             }
           });
   }
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         child: Container(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +99,7 @@ class _SplashScreen6State extends State<SplashScreen6>
                     "Welcome",
                     style: TextStyle(color: goldenColor, fontSize: 50),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               FadeAnimation(
@@ -113,7 +111,7 @@ class _SplashScreen6State extends State<SplashScreen6>
                         height: 1.4,
                         fontSize: 20),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 380,
               ),
               FadeAnimation(
@@ -126,11 +124,10 @@ class _SplashScreen6State extends State<SplashScreen6>
                           child: AnimatedBuilder(
                             animation: _widthController,
                             builder: (context, child) {
-                              print(_widthAnimation.value);
                               return Container(
                                 width: _widthAnimation.value,
                                 height: 80,
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     color: _widthAnimation.value > 80
@@ -156,7 +153,7 @@ class _SplashScreen6State extends State<SplashScreen6>
                                                         shape: NeumorphicShape
                                                             .concave,
                                                         boxShape:
-                                                            NeumorphicBoxShape
+                                                            const NeumorphicBoxShape
                                                                 .circle(),
                                                         depth: 2,
                                                         lightSource:
@@ -191,7 +188,7 @@ class _SplashScreen6State extends State<SplashScreen6>
                           ),
                         )),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
             ],
@@ -295,6 +292,7 @@ class FadeAnimation extends StatelessWidget {
   final double delay;
   final Widget child;
 
+  // ignore: use_key_in_widget_constructors
   const FadeAnimation(this.delay, this.child);
 
   @override
@@ -303,12 +301,12 @@ class FadeAnimation extends StatelessWidget {
       ..add(
         AnimationType.opacity,
         Tween(begin: 0.0, end: 1.0),
-        Duration(milliseconds: 500),
+        const Duration(milliseconds: 500),
       )
       ..add(
         AnimationType.translateX,
         Tween(begin: 30.0, end: 1.0),
-        Duration(milliseconds: 500),
+        const Duration(milliseconds: 500),
       );
 
     return PlayAnimation<MultiTweenValues<AnimationType>>(

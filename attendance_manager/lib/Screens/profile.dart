@@ -5,7 +5,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 // import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -14,10 +14,10 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   bool isEditing = false;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _email = TextEditingController();
-  TextEditingController _name = TextEditingController();
-  TextEditingController _role = TextEditingController();
-  TextEditingController _address = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _role = TextEditingController();
+  final TextEditingController _address = TextEditingController();
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
           actions: [
             IconButton(
               color: Colors.white,
-              icon: !isEditing ? Icon(Icons.edit) : Icon(Icons.close),
+              icon: !isEditing ? const Icon(Icons.edit) : const Icon(Icons.close),
               onPressed: () {
                 isEditing = !isEditing;
                 setState(() {});
@@ -48,14 +48,14 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
           leading: IconButton(
             color: Colors.white,
-            icon: Icon(Icons.arrow_back_ios_outlined),
+            icon: const Icon(Icons.arrow_back_ios_outlined),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           elevation: 10,
           backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
+          title: const Text(
             'Profile',
             style: TextStyle(
               color: Colors.white,
@@ -64,19 +64,19 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           foregroundColor: Theme.of(context).primaryColor,
         ),
-        body: Container(
+        body: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: double.infinity,
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Neumorphic(
                   style: NeumorphicStyle(
                       shape: NeumorphicShape.concave,
-                      boxShape: NeumorphicBoxShape.circle(),
+                      boxShape: const NeumorphicBoxShape.circle(),
                       depth: 2,
                       lightSource: LightSource.topLeft,
                       color: Theme.of(context).primaryColor),
@@ -110,7 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.fromLTRB(20, 50, 20, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 50, 20, 10),
                         child: TextFormField(
                             readOnly: !isEditing,
                             controller: _email,
@@ -120,9 +120,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               }
                               return null;
                             },
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 helperStyle: TextStyle(color: Colors.white),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide:
@@ -159,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         //           labelStyle: TextStyle(color: Colors.white))),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                         child: TextFormField(
                             readOnly: !isEditing,
                             controller: _name,
@@ -169,9 +169,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               }
                               return null;
                             },
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 helperStyle: TextStyle(color: Colors.white),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide:
@@ -186,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 labelStyle: TextStyle(color: Colors.white))),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                         child: TextFormField(
                             readOnly: true,
                             controller: _role,
@@ -196,9 +196,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               }
                               return null;
                             },
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 helperStyle: TextStyle(color: Colors.white),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide:
@@ -213,7 +213,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 labelStyle: TextStyle(color: Colors.white))),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                         child: TextFormField(
                             readOnly: true,
                             controller: _address,
@@ -223,9 +223,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               }
                               return null;
                             },
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 helperStyle: TextStyle(color: Colors.white),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide:
@@ -241,9 +241,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       if (isEditing)
                         Container(
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                           child: Row(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.info_outline,
                                 color: Colors.red,
@@ -265,14 +265,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       isEditing
                           ? Container(
                               width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                               child: MaterialButton(
                                 minWidth: 100,
                                 height: 60,
                                 color: goldenColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5)),
-                                child: Text(
+                                child: const Text(
                                   "Update",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
@@ -281,7 +281,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate())
-                                    print("pass");
+                                   { }
                                   //   Navigator.push(
                                   //       context,
                                   //       MaterialPageRoute(
@@ -292,14 +292,14 @@ class _ProfilePageState extends State<ProfilePage> {
                             )
                           : Container(
                               width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                               child: MaterialButton(
                                 minWidth: 100,
                                 height: 60,
                                 color: goldenColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5)),
-                                child: Text(
+                                child: const Text(
                                   "Change Password ?",
                                   style: TextStyle(
                                     fontWeight: FontWeight.w600,
@@ -311,7 +311,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              ChangePasswordPage()));
+                                              const ChangePasswordPage()));
                                 },
                               ),
                             ),

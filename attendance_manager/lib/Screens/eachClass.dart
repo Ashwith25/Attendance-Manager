@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/widgets/chart.dart';
 import 'package:attendance_manager/widgets/nameCard.dart';
@@ -50,7 +52,7 @@ class _EachClassState extends State<EachClass> {
           elevation: 10,
           leading: IconButton(
             color: Colors.white,
-            icon: Icon(Icons.arrow_back_ios_outlined),
+            icon: const Icon(Icons.arrow_back_ios_outlined),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -60,9 +62,9 @@ class _EachClassState extends State<EachClass> {
           // ),
           actions: [
             Container(
-              margin: EdgeInsets.only(right: 20),
+              margin: const EdgeInsets.only(right: 20),
               child: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.add,
                   size: 30,
                   color: Colors.white,
@@ -71,12 +73,12 @@ class _EachClassState extends State<EachClass> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MarkAttendancePage()));
+                          builder: (context) => const MarkAttendancePage()));
                 },
               ),
             )
           ],
-          title: Text(
+          title: const Text(
             'Class X',
             style: TextStyle(
               color: Colors.white,
@@ -86,7 +88,7 @@ class _EachClassState extends State<EachClass> {
           foregroundColor: Theme.of(context).primaryColor,
         ),
         body: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           height: size.height,
           width: size.width,
           decoration: BoxDecoration(
@@ -99,7 +101,8 @@ class _EachClassState extends State<EachClass> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Neumorphic(
-                  margin: EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
                   style: NeumorphicStyle(
                       shape: NeumorphicShape.concave,
                       boxShape: NeumorphicBoxShape.roundRect(
@@ -123,13 +126,13 @@ class _EachClassState extends State<EachClass> {
                         ),
                       ),
                       // Expanded(child: SizedBox()),
-                      SizedBox(width: 50),
+                      const SizedBox(width: 50),
                       Container(
                         height: 1,
                         width: MediaQuery.of(context).size.width,
                         color: goldenColor,
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       // isLoading
                       //     ? Container(
                       //         height: 250,
@@ -160,10 +163,10 @@ class _EachClassState extends State<EachClass> {
                       //         ),
                       //       )
                       // :
-                      Container(
+                      SizedBox(
                           height: 250,
                           width: MediaQuery.of(context).size.width,
-                          child: AttendanceBarChart(
+                          child: const AttendanceBarChart(
                             value: [
                               [0, "10"],
                               [1, "20"],
@@ -179,7 +182,7 @@ class _EachClassState extends State<EachClass> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
@@ -206,12 +209,12 @@ class _EachClassState extends State<EachClass> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 for (int i = 0; i < 10; i++)
                   Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Stack(
                       alignment: Alignment.centerRight,
                       children: [
@@ -225,7 +228,7 @@ class _EachClassState extends State<EachClass> {
                                 .showMaterialBanner(materialBanner(context));
                           },
                           child: Container(
-                              margin: EdgeInsets.only(right: 20, top: 10),
+                              margin: const EdgeInsets.only(right: 20, top: 10),
                               child: Icon(
                                 Icons.remove_circle_outline,
                                 color: Theme.of(context).errorColor,
@@ -259,6 +262,13 @@ class _EachClassState extends State<EachClass> {
     "ritikarad18it@student.mes.ac.in",
     "mhatrechisa18it@student.mes.ac.in",
   ];
+
+  Map name = {
+    "ashwith": "poojaryashan18it@student.mes.ac.in",
+    "manasi": "variarmanra18it@student.mes.ac.in",
+    "ritika": "ritikarad18it@student.mes.ac.in",
+    "chinmay": "mhatrechisa18it@student.mes.ac.in",
+  };
 
   searchEmail() {
     if (_emailController.text.isEmpty) {
@@ -298,7 +308,7 @@ class _EachClassState extends State<EachClass> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Container(
+                            SizedBox(
                               width: MediaQuery.of(context).size.width * 0.3,
                               child: FittedBox(
                                 child: Text(
@@ -320,7 +330,7 @@ class _EachClassState extends State<EachClass> {
                             )
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         TypeAheadFormField(
@@ -331,12 +341,12 @@ class _EachClassState extends State<EachClass> {
                               keyboardType: TextInputType.text,
                               maxLines: 1,
                               // autofocus: true,
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(30),
                               ],
                               cursorColor: Colors.white,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   helperStyle: TextStyle(color: Colors.white),
                                   focusedBorder: OutlineInputBorder(
                                       borderSide:
@@ -352,11 +362,11 @@ class _EachClassState extends State<EachClass> {
                           suggestionsCallback: (pattern) async {
                             return searchEmail();
                           },
-                          noItemsFoundBuilder: (ctx) => Container(
+                          noItemsFoundBuilder: (ctx) => const SizedBox(
                             height: 75,
                             child: Card(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(8.0),
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
@@ -373,9 +383,17 @@ class _EachClassState extends State<EachClass> {
                           itemBuilder: (context, suggestion) {
                             return GestureDetector(
                               onTap: () {
-                                print(suggestion);
+                                _emailController.text = suggestion as String;
+                                name.forEach((key, value) {
+                                  if (value.toString().toLowerCase() ==
+                                      suggestion.toString().toLowerCase()) {
+                                    _nameController.text =
+                                        key.toString().toUpperCase();
+                                  }
+                                });
+                                FocusScope.of(context).unfocus();
                               },
-                              child: Container(
+                              child: SizedBox(
                                 height: 75,
                                 child: Card(
                                   child: Padding(
@@ -384,7 +402,7 @@ class _EachClassState extends State<EachClass> {
                                       alignment: Alignment.centerLeft,
                                       child: Text(
                                         suggestion as String,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.black,
                                         ),
                                       ),
@@ -398,7 +416,9 @@ class _EachClassState extends State<EachClass> {
                               (context, suggestionsBox, controller) {
                             return suggestionsBox;
                           },
-                          onSuggestionSelected: (suggestion) {},
+                          onSuggestionSelected: (suggestion) {
+                            // print("suggestion is $suggestion");
+                          },
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Email cannot be empty";
@@ -406,50 +426,47 @@ class _EachClassState extends State<EachClass> {
                             return null;
                           },
                         ),
-                        SizedBox(
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                            controller: _nameController,
+                            readOnly: true,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Name cannot be empty";
+                              }
+                              return null;
+                            },
+                            style: const TextStyle(color: Colors.white),
+                            cursorColor: Colors.white,
+                            // enableInteractiveSelection: true,
+                            decoration: const InputDecoration(
+                                helperText: "This will autofill",
+                                helperStyle: TextStyle(color: Colors.white),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.white)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.white)),
+                                border: OutlineInputBorder(
+                                    borderSide:
+                                        BorderSide(color: Colors.white)),
+                                labelText: "Student name",
+                                labelStyle: TextStyle(color: Colors.white))),
+                        const SizedBox(
                           height: 20,
                         ),
                         Container(
-                          // padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
-                          child: TextFormField(
-                              controller: _nameController,
-                              readOnly: true,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Name cannot be empty";
-                                }
-                                return null;
-                              },
-                              style: TextStyle(color: Colors.white),
-                              cursorColor: Colors.white,
-                              // enableInteractiveSelection: true,
-                              decoration: InputDecoration(
-                                  helperText: "This will autofill",
-                                  helperStyle: TextStyle(color: Colors.white),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white)),
-                                  enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white)),
-                                  border: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.white)),
-                                  labelText: "Student name",
-                                  labelStyle: TextStyle(color: Colors.white))),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                          padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                           child: MaterialButton(
                             minWidth: double.infinity,
                             height: 60,
                             color: goldenColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5)),
-                            child: Text(
+                            child: const Text(
                               "Add student",
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
@@ -457,8 +474,11 @@ class _EachClassState extends State<EachClass> {
                               ),
                             ),
                             onPressed: () {
-                              if (_formKey.currentState!.validate())
+                              if (_formKey.currentState!.validate()) {
+                                _emailController.clear();
+                                _nameController.clear();
                                 Navigator.of(context).pop();
+                              }
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(

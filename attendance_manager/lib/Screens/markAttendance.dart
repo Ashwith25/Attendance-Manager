@@ -1,11 +1,10 @@
-import 'package:attendance_manager/auth/login.dart';
+// ignore_for_file: file_names
+
 import 'package:attendance_manager/constants.dart';
-import 'package:attendance_manager/theme.dart';
-import 'package:attendance_manager/welcome.dart';
 import 'package:flutter/material.dart';
 
 class MarkAttendancePage extends StatefulWidget {
-  MarkAttendancePage({Key? key}) : super(key: key);
+  const MarkAttendancePage({Key? key}) : super(key: key);
 
   @override
   _MarkAttendancePageState createState() => _MarkAttendancePageState();
@@ -31,7 +30,7 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
         appBar: AppBar(
           centerTitle: false,
           elevation: 10,
-          title: Text(
+          title: const Text(
             'Mark Attendance',
             style: TextStyle(
               color: Colors.white,
@@ -51,21 +50,21 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
                     child: Row(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top: 10, right: 5),
+                          margin: const EdgeInsets.only(top: 10, right: 5),
                           width: 5,
                           height: 75,
                           // color: Theme.of(context).accentColor,
-                          color: Color(0xFFF5C35A),
+                          color: const Color(0xFFF5C35A),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 10),
+                          margin: const EdgeInsets.only(top: 10),
                           height: 75,
                           width: MediaQuery.of(context).size.width * 0.9,
                           // width: double.infinity,
                           decoration: BoxDecoration(
                               gradient: LinearGradient(
                                   begin: Alignment.centerLeft,
-                                  stops: [
+                                  stops: const [
                                 0.3,
                                 1
                               ],
@@ -94,7 +93,7 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
                                     Text(
                                       student[i].email,
                                       // style:
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         letterSpacing: 1,
                                         fontSize: 15,
                                         fontWeight: FontWeight.w100,
@@ -104,9 +103,9 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
                                     )
                                   ],
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Container(
-                                  padding: EdgeInsets.only(left: 25),
+                                  padding: const EdgeInsets.only(left: 25),
                                   child: Checkbox(
                                       activeColor: goldenColor,
                                       checkColor:

@@ -1,21 +1,24 @@
+// ignore_for_file: file_names
+
 import 'package:attendance_manager/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class AddNewClassPage extends StatefulWidget {
-  AddNewClassPage({Key? key}) : super(key: key);
+  const AddNewClassPage({Key? key}) : super(key: key);
 
   @override
   _AddNewClassPageState createState() => _AddNewClassPageState();
 }
 
 class _AddNewClassPageState extends State<AddNewClassPage> {
-  var _year = ["FE", "SE", "TE", "BE"];
-  var _branch = ["COMPS", "IT", "EXTC", "ETRX", "AUTOMOBILE", "MECHANICAL"];
-  var _subject = ["Artifical Intelligence", "Enterprise Network design", "CSL"];
+  final List<String> _year = ["FE", "SE", "TE", "BE"];
+  final List<String> _branch = ["COMPS", "IT", "EXTC", "ETRX", "AUTOMOBILE", "MECHANICAL"];
+  final List<String> _subject = ["Artifical Intelligence", "Enterprise Network design", "CSL"];
 
   final _formKey = GlobalKey<FormBuilderState>();
-
+  
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -25,7 +28,7 @@ class _AddNewClassPageState extends State<AddNewClassPage> {
           centerTitle: false,
           elevation: 10,
           backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
+          title: const Text(
             'Add new class',
             style: TextStyle(
               color: Colors.white,
@@ -33,7 +36,7 @@ class _AddNewClassPageState extends State<AddNewClassPage> {
             ),
           ),
         ),
-        body: Container(
+        body: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: double.infinity,
           child: FormBuilder(
@@ -42,10 +45,10 @@ class _AddNewClassPageState extends State<AddNewClassPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 50, 20, 10),
+                  padding: const EdgeInsets.fromLTRB(20, 50, 20, 10),
                   child: FormBuilderDropdown(
                     name: 'year',
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         // errorText: "Year is required",
                         helperStyle: TextStyle(color: Colors.white),
                         focusedBorder: OutlineInputBorder(
@@ -59,23 +62,23 @@ class _AddNewClassPageState extends State<AddNewClassPage> {
                     // initialValue: 'Male',
                     dropdownColor: Theme.of(context).primaryColor,
                     allowClear: true,
-                    clearIcon: Icon(Icons.close, color: Colors.white,),
+                    clearIcon: const Icon(Icons.close, color: Colors.white,),
                     // hint: Text('Select Subject'),
                     validator: FormBuilderValidators.compose(
                         [FormBuilderValidators.required(context)]),
                     items: _year
                         .map((year) => DropdownMenuItem(
                               value: year,
-                              child: Text('$year', style: TextStyle(color: Colors.white),),
+                              child: Text(year, style: const TextStyle(color: Colors.white),),
                             ))
                         .toList(),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: FormBuilderDropdown(
                     name: 'branch',
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         // errorText: "Branch is required",
                         helperStyle: TextStyle(color: Colors.white),
                         focusedBorder: OutlineInputBorder(
@@ -89,23 +92,23 @@ class _AddNewClassPageState extends State<AddNewClassPage> {
                     // initialValue: 'Male',
                     dropdownColor: Theme.of(context).primaryColor,
                     allowClear: true,
-                    clearIcon: Icon(Icons.close, color: Colors.white,),
+                    clearIcon: const Icon(Icons.close, color: Colors.white,),
                     // hint: Text('Select Subject'),
                     validator: FormBuilderValidators.compose(
                         [FormBuilderValidators.required(context)]),
                     items: _branch
                         .map((branch) => DropdownMenuItem(
                               value: branch,
-                              child: Text('$branch', style: TextStyle(color: Colors.white),),
+                              child: Text(branch, style: const TextStyle(color: Colors.white),),
                             ))
                         .toList(),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: FormBuilderDropdown(
                     name: 'subject',
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         // errorText: "Subject is required",
                         helperStyle: TextStyle(color: Colors.white),
                         focusedBorder: OutlineInputBorder(
@@ -119,27 +122,27 @@ class _AddNewClassPageState extends State<AddNewClassPage> {
                     // initialValue: 'Male',
                     allowClear: true,
                     dropdownColor: Theme.of(context).primaryColor,
-                    clearIcon: Icon(Icons.close, color: Colors.white,),
+                    clearIcon: const Icon(Icons.close, color: Colors.white,),
                     // hint: Text('Select Subject'),
                     validator: FormBuilderValidators.compose(
                         [FormBuilderValidators.required(context)]),
                     items: _subject
                         .map((subject) => DropdownMenuItem(
                               value: subject,
-                              child: Text('$subject', style: TextStyle(color: Colors.white),),
+                              child: Text(subject, style: const TextStyle(color: Colors.white),),
                             ))
                         .toList(),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
                     color: goldenColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5)),
-                    child: Text(
+                    child: const Text(
                       "Add class",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -148,7 +151,7 @@ class _AddNewClassPageState extends State<AddNewClassPage> {
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        print(_formKey.currentState!.fields["subject"]!.value);
+                        // print(_formKey.currentState!.fields["subject"]!.value);
                         Navigator.of(context).pop();
                       }
                     },

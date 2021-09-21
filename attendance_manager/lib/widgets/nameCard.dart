@@ -1,10 +1,13 @@
+
+// ignore_for_file: file_names
+
 import 'package:attendance_manager/constants.dart';
 import 'package:flutter/material.dart';
 
 class NameCard extends StatelessWidget {
-  final title;
-  final subtitle;
-  const NameCard({Key? key, this.title, this.subtitle})
+  final String title;
+  final String subtitle;
+  const NameCard({Key? key, required this.title, required this.subtitle})
       : super(key: key);
 
   @override
@@ -12,19 +15,19 @@ class NameCard extends StatelessWidget {
     return Row(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 10, right: 5),
+          margin: const EdgeInsets.only(top: 10, right: 5),
           width: 5,
           height: 75,
           // color: Theme.of(context).accentColor,
-          color: Color(0xFFF5C35A),
+          color: const Color(0xFFF5C35A),
         ),
         Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: const EdgeInsets.only(top: 10),
           height: 75,
           width: MediaQuery.of(context).size.width * 0.85,
           // width: double.infinity,
           decoration: BoxDecoration(
-              gradient: LinearGradient(begin: Alignment.centerLeft, stops: [
+              gradient: LinearGradient(begin: Alignment.centerLeft, stops: const [
             0.3,
             1
           ], colors: [
@@ -42,17 +45,17 @@ class NameCard extends StatelessWidget {
                 Text(
                   title.toString().toUpperCase(),
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: goldenColor,
                   ),
                 ),
                 Text(
-                  "$subtitle",
+                  subtitle.toString().toUpperCase(),
                   // style:
-                  style: TextStyle(
+                  style: const TextStyle(
                     letterSpacing: 1,
-                    fontSize: 15,
+                    fontSize: 13,
                     fontWeight: FontWeight.w100,
                     // fontWeight: FontWeight.,
                     color: Colors.white,

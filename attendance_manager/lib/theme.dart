@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -72,15 +74,13 @@ class AppTheme {
         appBarTheme: AppBarTheme(
           color: primaryColor,
         ),
-        popupMenuTheme: PopupMenuThemeData(color: Colors.white),
-        colorScheme: colorScheme,
+        popupMenuTheme: const PopupMenuThemeData(color: Colors.white),
         primaryColor: primaryColor,
         buttonColor: HexColor("#FDBD00"),
         splashColor: Colors.white.withOpacity(0.1),
         hoverColor: Colors.transparent,
         splashFactory: InkRipple.splashFactory,
         highlightColor: Colors.transparent,
-        accentColor: HexColor("#48BF84"),
         canvasColor: Colors.white,
         scaffoldBackgroundColor: Colors.white,
         backgroundColor: Colors.white,
@@ -93,7 +93,7 @@ class AppTheme {
         primaryTextTheme: _buildTextTheme(base.textTheme),
         platform: TargetPlatform.iOS,
         indicatorColor: primaryColor,
-        disabledColor: HexColor("#D5D7D8"));
+        disabledColor: HexColor("#D5D7D8"), colorScheme: colorScheme.copyWith(secondary: HexColor("#48BF84")));
   }
 
   static ThemeData darkTheme() {
@@ -105,16 +105,14 @@ class AppTheme {
     );
     final ThemeData base = ThemeData.dark();
     return base.copyWith(
-      popupMenuTheme: PopupMenuThemeData(color: Colors.black),
-      appBarTheme: AppBarTheme(color: Colors.black),
+      popupMenuTheme: const PopupMenuThemeData(color: Colors.black),
+      appBarTheme: const AppBarTheme(color: Colors.black),
       dividerColor: HexColor("#F1F1F1"),
-      colorScheme: colorScheme,
       primaryColor: primaryColor,
       buttonColor: primaryColor,
       indicatorColor: Colors.white,
       splashColor: Colors.white24,
       splashFactory: InkRipple.splashFactory,
-      accentColor: secondaryColor,
       canvasColor: Colors.white,
       backgroundColor: Colors.grey[850],
       scaffoldBackgroundColor: Colors.grey[850],
@@ -125,7 +123,7 @@ class AppTheme {
       textTheme: _buildTextTheme(base.textTheme),
       primaryTextTheme: _buildTextTheme(base.primaryTextTheme),
       accentTextTheme: _buildTextTheme(base.accentTextTheme),
-      platform: TargetPlatform.iOS,
+      platform: TargetPlatform.iOS, colorScheme: colorScheme.copyWith(secondary: secondaryColor),
     );
   }
 

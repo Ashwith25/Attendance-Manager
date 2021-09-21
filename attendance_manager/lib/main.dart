@@ -8,7 +8,7 @@ void main() {
   runApp(MaterialApp(
     theme: AppTheme.getTheme(),
     debugShowCheckedModeBanner: false,
-    home: SplashScreen6(),
+    home: const SplashScreen6(),
   ));
 }
 
@@ -18,6 +18,6 @@ Widget build(BuildContext context) {
   return MaterialApp(
     title: 'Attendance Manager',
     theme: AppTheme.getTheme(),
-    home: TeacherHome(),
+    home: const TeacherHome(),
   );
 }

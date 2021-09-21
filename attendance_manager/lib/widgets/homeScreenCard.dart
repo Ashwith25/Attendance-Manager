@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, file_names
 
 import 'package:attendance_manager/constants.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class HomeScreenCard extends StatelessWidget {
         height: 75,
         // width: MediaQuery.of(context).size.width * 0.45,
         width: 150,
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Column(
