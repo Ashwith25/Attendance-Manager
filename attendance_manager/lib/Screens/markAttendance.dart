@@ -28,6 +28,13 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            color: Colors.white,
+            icon: const Icon(Icons.arrow_back_ios_outlined),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           centerTitle: false,
           elevation: 10,
           title: const Text(
