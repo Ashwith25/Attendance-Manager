@@ -151,11 +151,16 @@ class _SplashScreen6State extends State<SplashScreen6>
                                                   child: Neumorphic(
                                                     style: NeumorphicStyle(
                                                         shape: NeumorphicShape
-                                                            .concave,
+                                                            .convex,
                                                         boxShape:
                                                             const NeumorphicBoxShape
                                                                 .circle(),
-                                                        depth: 2,
+                                                        depth: 3,
+          intensity: 0.7,
+          surfaceIntensity: 0.15,
+          shadowDarkColor: Colors.black87,
+          shadowDarkColorEmboss: Colors.black,
+          shadowLightColor: Colors.grey[700],
                                                         lightSource:
                                                             LightSource.topLeft,
                                                         color: Theme.of(context)

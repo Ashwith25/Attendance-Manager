@@ -35,8 +35,6 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
               Navigator.of(context).pop();
             },
           ),
-          centerTitle: false,
-          elevation: 10,
           title: const Text(
             'Mark Attendance',
             style: TextStyle(

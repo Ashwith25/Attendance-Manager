@@ -18,7 +18,8 @@ class NameCard extends StatelessWidget {
           width: 5,
           height: 75,
           // color: Theme.of(context).accentColor,
-          color: const Color(0xFFF5C35A),
+          // color: const Color(0xFFF5C35A),
+          color: goldenColor,
         ),
         Container(
           margin: const EdgeInsets.only(top: 10),
@@ -51,7 +52,7 @@ class NameCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  subtitle.toString().toUpperCase(),
+                  subtitle,
                   // style:
                   style: const TextStyle(
                     letterSpacing: 1,
