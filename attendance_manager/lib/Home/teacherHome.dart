@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:attendance_manager/Screens/addNewClass.dart';
 import 'package:attendance_manager/Screens/eachClass.dart';
 import 'package:attendance_manager/Screens/profile.dart';
@@ -14,6 +16,7 @@ class TeacherHome extends StatefulWidget {
 }
 
 class _TeacherHomeState extends State<TeacherHome> {
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -26,7 +29,7 @@ class _TeacherHomeState extends State<TeacherHome> {
           leading: Container(
             width: 0,
           ),
-          title: Text(
+          title: const Text(
             'Attendance Manager',
             style: TextStyle(
               color: Colors.white,
@@ -36,7 +39,7 @@ class _TeacherHomeState extends State<TeacherHome> {
           foregroundColor: Theme.of(context).primaryColor,
         ),
         body: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           height: size.height,
           width: size.width,
           decoration: BoxDecoration(
@@ -59,8 +62,8 @@ class _TeacherHomeState extends State<TeacherHome> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
+                const Padding(
+                  padding: EdgeInsets.only(left: 8.0),
                   child: Text(
                     "Teacher name",
                     style: TextStyle(
@@ -70,12 +73,12 @@ class _TeacherHomeState extends State<TeacherHome> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
 
                 SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
@@ -84,9 +87,9 @@ class _TeacherHomeState extends State<TeacherHome> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AddNewClassPage()));
+                                  builder: (context) => const AddNewClassPage()));
                         },
-                        child: HomeScreenCard(
+                        child: const HomeScreenCard(
                           title: "Add Class",
                           // icon: 'assets/add.png',
                           icon: Icons.add,
@@ -97,22 +100,22 @@ class _TeacherHomeState extends State<TeacherHome> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ProfilePage()));
+                                  builder: (context) => const ProfilePage()));
                         },
-                        child: HomeScreenCard(
+                        child: const HomeScreenCard(
                           title: "Profile",
                           // icon: 'assets/profile.png',
                           icon: Icons.person_outline_outlined,
                         ),
                       ),
-                      HomeScreenCard(
+                      const HomeScreenCard(
                           title: "Logout",
                           // icon: 'assets/logout.png',
                           icon: Icons.logout),
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
@@ -126,17 +129,17 @@ class _TeacherHomeState extends State<TeacherHome> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 for (int i = 0; i < 10; i++)
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => EachClass()));
+                          MaterialPageRoute(builder: (context) => const EachClass()));
                     },
                     child: Padding(
-                      padding: EdgeInsets.only(left: 10, right: 10),
+                      padding: const EdgeInsets.only(left: 10, right: 10),
                       child: NameCard(
                         title: "Class ${i + 1}",
                         subtitle: "${i + 10} students",

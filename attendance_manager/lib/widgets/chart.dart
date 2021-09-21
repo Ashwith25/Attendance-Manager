@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'dart:async';
-import 'package:attendance_manager/theme.dart';
 import 'package:flutter/gestures.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -133,7 +134,7 @@ class BarChartState extends State<AttendanceBarChart> {
 
               return BarTooltipItem(
                 weekDay + '\n',
-                TextStyle(
+                const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:attendance_manager/constants.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   final textSelectionControl = TextSelectionControls;
-
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Theme.of(context).primaryColor,
           leading: Container(),
         ),
-        body: Container(
+        body: SizedBox(
             height: MediaQuery.of(context).size.height,
             width: double.infinity,
             child: Form(
@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Text(
@@ -50,11 +50,11 @@ class _LoginPageState extends State<LoginPage> {
                       color: goldenColor,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(20, 50, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 50, 20, 10),
                     child: TextFormField(
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -62,11 +62,11 @@ class _LoginPageState extends State<LoginPage> {
                           }
                           return null;
                         },
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         // enableInteractiveSelection: false,
                         // showCursor: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             helperStyle: TextStyle(color: Colors.white),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)),
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                             labelStyle: TextStyle(color: Colors.white))),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                     child: TextFormField(
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                           return null;
                         },
                         obscureText: !_passwordVisible,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
                         // enableInteractiveSelection: true,
                         decoration: InputDecoration(
@@ -104,25 +104,25 @@ class _LoginPageState extends State<LoginPage> {
                                 });
                               },
                             ),
-                            helperStyle: TextStyle(color: Colors.white),
-                            focusedBorder: OutlineInputBorder(
+                            helperStyle: const TextStyle(color: Colors.white),
+                            focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)),
-                            enabledBorder: OutlineInputBorder(
+                            enabledBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)),
-                            border: OutlineInputBorder(
+                            border: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)),
                             labelText: "Password",
-                            labelStyle: TextStyle(color: Colors.white))),
+                            labelStyle: const TextStyle(color: Colors.white))),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 60,
                       color: goldenColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
-                      child: Text(
+                      child: const Text(
                         "Login",
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
@@ -130,23 +130,24 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       onPressed: () {
-                        if (_formKey.currentState!.validate())
+                        if (_formKey.currentState!.validate()) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => TeacherHome()));
+                                  builder: (context) => const TeacherHome()));
+                        }
                       },
                     ),
                   ),
                   // SizedBox(
                   //   height: 250,
                   // ),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
+                      const Text(
                         "Don't have an account? ",
                         style: TextStyle(color: Colors.white, fontSize: 12),
                       ),
@@ -155,9 +156,9 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SignupPage()));
+                                  builder: (context) => const SignupPage()));
                         },
-                        child: Text(
+                        child: const Text(
                           "SignUp",
                           style: TextStyle(
                             decoration: TextDecoration.underline,
@@ -169,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                 ],

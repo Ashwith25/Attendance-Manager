@@ -3,16 +3,16 @@ import 'package:attendance_manager/constants.dart';
 import 'package:flutter/material.dart';
 
 class ChangePasswordPage extends StatefulWidget {
-  ChangePasswordPage({Key? key}) : super(key: key);
+  const ChangePasswordPage({Key? key}) : super(key: key);
 
   @override
   _ChangePasswordPageState createState() => _ChangePasswordPageState();
 }
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
-  TextEditingController _oldpassword = TextEditingController();
-  TextEditingController _newpassword = TextEditingController();
-  TextEditingController _confirm = TextEditingController();
+  final TextEditingController _oldpassword = TextEditingController();
+  final TextEditingController _newpassword = TextEditingController();
+  final TextEditingController _confirm = TextEditingController();
 
   bool _passwordVisible = false;
   bool _passwordVisible1 = false;
@@ -25,6 +25,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     _passwordVisible = false;
   }
 
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -34,7 +35,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           elevation: 0,
           backgroundColor: Theme.of(context).primaryColor,
         ),
-        body: Container(
+        body: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: double.infinity,
           child: Form(
@@ -58,7 +59,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   //   height: 10,
                   // ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(20, 50, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 50, 20, 10),
                     child: TextFormField(
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -66,9 +67,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                           }
                           return null;
                         },
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                         cursorColor: Colors.white,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             helperStyle: TextStyle(color: Colors.white),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white)),
@@ -80,7 +81,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                             labelStyle: TextStyle(color: Colors.white))),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                     child: TextFormField(
                       controller: _oldpassword,
                       validator: (value) {
@@ -90,7 +91,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         return null;
                       },
                       obscureText: !_passwordVisible,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
                         suffixIcon: IconButton(
@@ -106,21 +107,21 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                             });
                           },
                         ),
-                        helperStyle: TextStyle(color: Colors.white),
-                        focusedBorder: OutlineInputBorder(
+                        helperStyle: const TextStyle(color: Colors.white),
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
                         labelText: "Old Password",
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
 
                   Container(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                     child: TextFormField(
                       controller: _newpassword,
                       validator: (value) {
@@ -130,7 +131,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         return null;
                       },
                       obscureText: !_passwordVisible2,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
                         suffixIcon: IconButton(
@@ -146,20 +147,20 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                             });
                           },
                         ),
-                        helperStyle: TextStyle(color: Colors.white),
-                        focusedBorder: OutlineInputBorder(
+                        helperStyle: const TextStyle(color: Colors.white),
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
                         labelText: "New Password",
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                     child: TextFormField(
                       controller: _confirm,
                       validator: (value) {
@@ -171,7 +172,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         return null;
                       },
                       obscureText: !_passwordVisible1,
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       cursorColor: Colors.white,
                       decoration: InputDecoration(
                         suffixIcon: IconButton(
@@ -187,27 +188,27 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                             });
                           },
                         ),
-                        helperStyle: TextStyle(color: Colors.white),
-                        focusedBorder: OutlineInputBorder(
+                        helperStyle: const TextStyle(color: Colors.white),
+                        focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
-                        enabledBorder: OutlineInputBorder(
+                        enabledBorder: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.white)),
                         labelText: "Confirm New Password",
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                     child: MaterialButton(
                       minWidth: double.infinity,
                       height: 60,
                       color: goldenColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
-                      child: Text(
+                      child: const Text(
                         "Update",
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
@@ -215,11 +216,12 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         ),
                       ),
                       onPressed: () {
-                        if (_formKey.currentState!.validate())
+                        if (_formKey.currentState!.validate()) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginPage()));
+                                  builder: (context) => const LoginPage()));
+                        }
                       },
                     ),
                   ),
