@@ -193,8 +193,8 @@ class BarChartState extends State<AttendanceBarChart> {
         leftTitles: SideTitles(
             getTextStyles: (value, _) => TextStyle(
                 color: goldenColor, fontWeight: FontWeight.w100, fontSize: 13),
-            reservedSize: 30,
-            margin: 20,
+            reservedSize: 20,
+            margin: 15,
             showTitles: true,
             interval: double.parse(widget.interval.toString())),
       ),

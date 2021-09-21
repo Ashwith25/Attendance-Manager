@@ -30,6 +30,13 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
         appBar: AppBar(
           centerTitle: false,
           elevation: 10,
+          leading: IconButton(
+            color: Colors.white,
+            icon: const Icon(Icons.arrow_back_ios_outlined),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           title: const Text(
             'Mark Attendance',
             style: TextStyle(

@@ -1,4 +1,3 @@
-
 // ignore_for_file: file_names
 
 import 'package:attendance_manager/constants.dart';
@@ -19,7 +18,8 @@ class NameCard extends StatelessWidget {
           width: 5,
           height: 75,
           // color: Theme.of(context).accentColor,
-          color: const Color(0xFFF5C35A),
+          // color: const Color(0xFFF5C35A),
+          color: goldenColor,
         ),
         Container(
           margin: const EdgeInsets.only(top: 10),
@@ -27,7 +27,8 @@ class NameCard extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.85,
           // width: double.infinity,
           decoration: BoxDecoration(
-              gradient: LinearGradient(begin: Alignment.centerLeft, stops: const [
+              gradient:
+                  LinearGradient(begin: Alignment.centerLeft, stops: const [
             0.3,
             1
           ], colors: [
@@ -51,7 +52,7 @@ class NameCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  subtitle.toString().toUpperCase(),
+                  subtitle,
                   // style:
                   style: const TextStyle(
                     letterSpacing: 1,

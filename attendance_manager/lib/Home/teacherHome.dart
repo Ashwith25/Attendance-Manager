@@ -67,6 +67,7 @@ class _TeacherHomeState extends State<TeacherHome> {
                   child: Text(
                     "Teacher name",
                     style: TextStyle(
+                      letterSpacing: 1,
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,

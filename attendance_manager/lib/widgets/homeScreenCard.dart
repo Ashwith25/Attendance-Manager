@@ -15,9 +15,15 @@ class HomeScreenCard extends StatelessWidget {
     return Neumorphic(
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
       style: NeumorphicStyle(
-          shape: NeumorphicShape.concave,
+          shape: NeumorphicShape.convex,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(10)),
-          depth: 2.5,
+          // depth: 2.5,
+          depth: 3,
+          intensity: 0.7,
+          surfaceIntensity: 0.15,
+          shadowDarkColor: Colors.black87,
+          shadowDarkColorEmboss: Colors.black,
+          shadowLightColor: Colors.grey[700],
           lightSource: LightSource.topLeft,
           color: Theme.of(context).primaryColor),
       child: Container(
