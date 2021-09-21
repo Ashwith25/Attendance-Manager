@@ -53,7 +53,7 @@ class _TeacherHomeState extends State<TeacherHome> {
                   child: Text(
                     "Welcome,",
                     style: TextStyle(
-                      fontSize: 40,
+                      fontSize: 35,
                       fontWeight: FontWeight.bold,
                       color: goldenColor,
                     ),
@@ -64,7 +64,7 @@ class _TeacherHomeState extends State<TeacherHome> {
                   child: Text(
                     "Teacher name",
                     style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),

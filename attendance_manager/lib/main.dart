@@ -1,7 +1,6 @@
 import 'package:attendance_manager/theme.dart';
 import 'package:attendance_manager/welcome.dart';
 import 'package:flutter/material.dart';
-
 import 'Home/teacherHome.dart';
 
 void main() {

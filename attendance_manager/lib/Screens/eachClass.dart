@@ -51,7 +51,8 @@ class _EachClassState extends State<EachClass> {
           leading: IconButton(
             color: Colors.white,
             icon: Icon(Icons.arrow_back_ios_outlined),
-            onPressed: () {
+            onPressed: () { 
+              ScaffoldMessenger.of(context).clearMaterialBanners();
               Navigator.of(context).pop();
             },
           ),
@@ -60,7 +61,7 @@ class _EachClassState extends State<EachClass> {
           // ),
           actions: [
             Container(
-              margin: EdgeInsets.only(right: 20),
+              margin: EdgeInsets.only(right: 0),
               child: IconButton(
                 icon: Icon(
                   Icons.add,
@@ -196,7 +197,11 @@ class _EachClassState extends State<EachClass> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: popUp,
+                        onTap: () {
+                          ScaffoldMessenger.of(context)
+                              .hideCurrentMaterialBanner();
+                          popUp();
+                        },
                         child: Icon(
                           Icons.add,
                           size: 25,

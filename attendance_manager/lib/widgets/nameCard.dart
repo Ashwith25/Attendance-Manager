@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 class NameCard extends StatelessWidget {
   final title;
   final subtitle;
-  const NameCard({Key? key, this.title, this.subtitle})
-      : super(key: key);
+  const NameCard({Key? key, this.title, this.subtitle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,7 @@ class NameCard extends StatelessWidget {
                 Text(
                   title.toString().toUpperCase(),
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: goldenColor,
                   ),
@@ -52,7 +51,7 @@ class NameCard extends StatelessWidget {
                   // style:
                   style: TextStyle(
                     letterSpacing: 1,
-                    fontSize: 15,
+                    fontSize: 13,
                     fontWeight: FontWeight.w100,
                     // fontWeight: FontWeight.,
                     color: Colors.white,
