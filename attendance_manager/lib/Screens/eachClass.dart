@@ -33,6 +33,7 @@ class _EachClassState extends State<EachClass> {
           TextButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+                _flag = false;
                 list.removeAt(i);
                 setState(() {});
               },
@@ -43,7 +44,9 @@ class _EachClassState extends State<EachClass> {
           TextButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+                _flag = false;
                 controller!.closeAllOpenCell();
+                setState(() {});
               },
               child: const Text("No")),
         ]);
@@ -52,6 +55,7 @@ class _EachClassState extends State<EachClass> {
   final _emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
+  bool _flag = false;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -61,33 +65,39 @@ class _EachClassState extends State<EachClass> {
           centerTitle: false,
           // leadingWidth: 0,
           elevation: 10,
-          leading: IconButton(
-            color: Colors.white,
-            icon: const Icon(Icons.arrow_back_ios_outlined),
-            onPressed: () {
-              ScaffoldMessenger.of(context).clearMaterialBanners();
-              Navigator.of(context).pop();
-            },
+          leading: AbsorbPointer(
+            absorbing: _flag,
+            child: IconButton(
+              color: Colors.white,
+              icon: const Icon(Icons.arrow_back_ios_outlined),
+              onPressed: () {
+                ScaffoldMessenger.of(context).clearMaterialBanners();
+                Navigator.of(context).pop();
+              },
+            ),
           ),
           // leading: Container(
           //   width: 0,
           // ),
           actions: [
-            Container(
-              margin: const EdgeInsets.only(right: 20),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.add,
-                  size: 30,
-                  color: Colors.white,
+            AbsorbPointer(
+              absorbing: _flag,
+              child: Container(
+                margin: const EdgeInsets.only(right: 20),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.add,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).clearMaterialBanners();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MarkAttendancePage()));
+                  },
                 ),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).clearMaterialBanners();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MarkAttendancePage()));
-                },
               ),
             )
           ],
@@ -100,10 +110,8 @@ class _EachClassState extends State<EachClass> {
           ),
           foregroundColor: Theme.of(context).primaryColor,
         ),
-        body: GestureDetector(
-          onTap: () {
-            ScaffoldMessenger.of(context).clearMaterialBanners();
-          },
+        body: AbsorbPointer(
+          absorbing: _flag,
           child: Container(
             padding: const EdgeInsets.all(10),
             height: size.height,
@@ -260,6 +268,7 @@ class _EachClassState extends State<EachClass> {
                                   const Icon(Icons.delete, color: Colors.white),
                               // nestedAction: SwipeNestedAction(title: "confirm"),
                               onTap: (handler) async {
+                                _flag = true;
                                 // print("handler is ${handler}");
                                 // await handler(true);
                                 ScaffoldMessenger.of(context)
