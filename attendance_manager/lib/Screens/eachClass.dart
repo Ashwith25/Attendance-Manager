@@ -1,8 +1,6 @@
 // ignore_for_file: file_names
-
 import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/widgets/chart.dart';
-import 'package:attendance_manager/widgets/nameCard.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
@@ -83,7 +81,7 @@ class _EachClassState extends State<EachClass> {
             AbsorbPointer(
               absorbing: _flag,
               child: Container(
-                margin: const EdgeInsets.only(right: 20),
+                margin: const EdgeInsets.only(right: 10),
                 child: IconButton(
                   icon: const Icon(
                     Icons.add,

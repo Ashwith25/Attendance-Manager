@@ -1,4 +1,3 @@
-import 'package:attendance_manager/Home/studentHome.dart';
 import 'package:attendance_manager/Home/teacherHome.dart';
 import 'package:attendance_manager/auth/signup.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,4 @@
 // ignore_for_file: file_names
-import 'package:attendance_manager/Screens/addNewClass.dart';
-import 'package:attendance_manager/Screens/eachClass.dart';
 import 'package:attendance_manager/Screens/profile.dart';
 import 'package:attendance_manager/constants.dart';
 import 'package:attendance_manager/widgets/chart.dart';
