@@ -453,8 +453,8 @@ class _EachClassState extends State<EachClass> {
                                 Navigator.pop(context);
                               },
                               child: Icon(
-                                Icons.close,
-                                size: 35,
+                                Icons.cancel,
+                                size: 30,
                                 color: goldenColor,
                               ),
                             )
