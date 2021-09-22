@@ -1,3 +1,4 @@
+import 'package:attendance_manager/Home/studentHome.dart';
 import 'package:attendance_manager/Home/teacherHome.dart';
 import 'package:attendance_manager/auth/signup.dart';
 import 'package:flutter/material.dart';
@@ -134,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const TeacherHome()));
+                                  builder: (context) => const StudentHome()));
                         }
                       },
                     ),
