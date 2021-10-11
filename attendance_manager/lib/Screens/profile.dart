@@ -1,7 +1,12 @@
+import 'package:attendance_manager/Screens/add_address.dart';
 import 'package:attendance_manager/auth/change_password.dart';
+import 'package:attendance_manager/services/get_location.dart';
+import 'package:attendance_manager/services/toast_service.dart';
 import 'package:flutter/material.dart';
 import 'package:attendance_manager/constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:geolocator/geolocator.dart';
+
 // import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -25,7 +30,8 @@ class _ProfilePageState extends State<ProfilePage> {
     _email.text = "defaultEmail@student.mes.ac.in";
     _name.text = "Teacher Name";
     _role.text = "TEACHER";
-    _address.text = "Ghansoli, Maharashtra";
+    _address.text = "Address not found";
+    checkLocationPermission();
   }
 
   @override
@@ -39,7 +45,8 @@ class _ProfilePageState extends State<ProfilePage> {
           actions: [
             IconButton(
               color: Colors.white,
-              icon: !isEditing ? const Icon(Icons.edit) : const Icon(Icons.close),
+              icon:
+                  !isEditing ? const Icon(Icons.edit) : const Icon(Icons.close),
               onPressed: () {
                 isEditing = !isEditing;
                 setState(() {});
@@ -78,11 +85,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       shape: NeumorphicShape.convex,
                       boxShape: const NeumorphicBoxShape.circle(),
                       depth: 3,
-          intensity: 0.7,
-          surfaceIntensity: 0.15,
-          shadowDarkColor: Colors.black87,
-          shadowDarkColorEmboss: Colors.black,
-          shadowLightColor: Colors.grey[700],
+                      intensity: 0.7,
+                      surfaceIntensity: 0.15,
+                      shadowDarkColor: Colors.black87,
+                      shadowDarkColorEmboss: Colors.black,
+                      shadowLightColor: Colors.grey[700],
                       lightSource: LightSource.topLeft,
                       color: Theme.of(context).primaryColor),
                   child: CircleAvatar(
@@ -124,6 +131,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                 return "Email Address can't be empty";
                               }
                               return null;
+                            },
+                            onTap: (){
+                              if(!isEditing){
+                                ToastService.showToast(
+                                    "Tap on the edit icon to make changes", context);
+                              }
                             },
                             style: const TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
@@ -174,6 +187,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               }
                               return null;
                             },
+                            onTap: (){
+                              if(!isEditing){
+                                ToastService.showToast(
+                                    "Tap on the edit icon to make changes", context);
+                              }
+                            },
                             style: const TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
                             decoration: const InputDecoration(
@@ -201,6 +220,12 @@ class _ProfilePageState extends State<ProfilePage> {
                               }
                               return null;
                             },
+                            onTap: (){
+                              if(!isEditing){
+                                ToastService.showToast(
+                                    "Tap on the edit icon to make changes", context);
+                              }
+                            },
                             style: const TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
                             decoration: const InputDecoration(
@@ -222,6 +247,31 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: TextFormField(
                             readOnly: true,
                             controller: _address,
+                            onTap: () async {
+                              // await checkLocationPermission();
+                              // if (isEditing) {
+                              //   var address = await MyLocation().getLocation();
+                              //   setState(() {
+                              //     _address.text = address;
+                              //   });
+                              // }
+
+                              if (isEditing) {
+                                Position position =
+                                    await MyLocation().getLocation();
+
+                                var address = await Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            AddressScreen(position: position)));
+                                setState(() {
+                                  _address.text = address;
+                                });
+                              } else {
+                                ToastService.showToast(
+                                    "Tap on the edit icon to make changes", context);
+                              }
+                            },
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Address can't be empty";
@@ -270,7 +320,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       isEditing
                           ? Container(
                               width: MediaQuery.of(context).size.width,
-                              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                              padding:
+                                  const EdgeInsets.fromLTRB(20, 20, 20, 10),
                               child: MaterialButton(
                                 minWidth: 100,
                                 height: 60,
@@ -285,8 +336,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  if (_formKey.currentState!.validate())
-                                   { }
+                                  if (_formKey.currentState!.validate()) {}
                                   //   Navigator.push(
                                   //       context,
                                   //       MaterialPageRoute(
@@ -297,7 +347,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             )
                           : Container(
                               width: MediaQuery.of(context).size.width,
-                              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                              padding:
+                                  const EdgeInsets.fromLTRB(20, 20, 20, 10),
                               child: MaterialButton(
                                 minWidth: 100,
                                 height: 60,
@@ -336,5 +387,74 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+  }
+
+  Future checkLocationPermission() async {
+    var permission = await Geolocator.checkPermission();
+    print("Checking location permisiion = $permission");
+    if (permission == LocationPermission.denied) {
+      print("Location permission denied (not Forever)");
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.deniedForever) {
+        print("Permission is forever denied");
+        // noLocationDialogBox(context);
+        permission = await Geolocator.requestPermission();
+        // Permissions are denied forever, handle appropriately.
+        return Future.error(
+            'Location permissions are permanently denied, we cannot request permissions.');
+      }
+    }
+
+    bool serviceEnabled;
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    print("Location status = $serviceEnabled");
+    if (!serviceEnabled) {
+      print("Service Not enabled");
+      noLocationDialogBox(context);
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+  }
+
+  noLocationDialogBox(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text(
+              "Location is disabled",
+              textAlign: TextAlign.center,
+            ),
+            content: SizedBox(
+                height: 80,
+                child: Column(children: const [
+                  Icon(
+                    Icons.location_off_rounded,
+                    color: Colors.red,
+                    size: 30,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Please turn on Location and try again",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                ])),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Okay"))
+            ],
+          );
+        });
   }
 }
