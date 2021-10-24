@@ -19,8 +19,7 @@ class MyLocation {
     // final coordinates = Coordinates(position.latitude, position.longitude);
     // var address =
     //     await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    print("Location:    ----------------  $position");
-    print(address);
+
 
     return position;
     // print("Name: ${address.first.} and ${address.first.addressLine}");
