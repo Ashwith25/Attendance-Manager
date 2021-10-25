@@ -1,6 +1,11 @@
+import 'package:attendance_manager/Home/teacherHome.dart';
 import 'package:attendance_manager/auth/login.dart';
 import 'package:attendance_manager/constants.dart';
+import 'package:attendance_manager/services/auth_service.dart';
+import 'package:attendance_manager/services/toast_service.dart';
+import 'package:attendance_manager/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -12,6 +17,8 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirm = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _name = TextEditingController();
 
   bool _passwordVisible = false;
   bool _passwordVisible1 = false;
@@ -51,13 +58,21 @@ class _SignupPageState extends State<SignupPage> {
                 Container(
                   padding: const EdgeInsets.fromLTRB(20, 50, 20, 10),
                   child: TextFormField(
-                      validator: (value) {
-                        if (value!.isEmpty) {
+                      controller: _email,
+                      validator: (email) {
+                        if (email!.isEmpty) {
                           return "Email Address can't be empty";
+                        } else if (!RegExp(
+                                r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                            .hasMatch(email)) {
+                          return 'Enter your correct email';
+                        } else if (!email.contains("mes.ac.in")) {
+                          return 'Enter your college email id';
                         }
                         return null;
                       },
                       style: const TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
                       decoration: const InputDecoration(
                           helperStyle: TextStyle(color: Colors.white),
                           focusedBorder: OutlineInputBorder(
@@ -72,6 +87,7 @@ class _SignupPageState extends State<SignupPage> {
                 Container(
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: TextFormField(
+                      controller: _name,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Name can't be empty";
@@ -79,6 +95,7 @@ class _SignupPageState extends State<SignupPage> {
                         return null;
                       },
                       style: const TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
                       decoration: const InputDecoration(
                           helperStyle: TextStyle(color: Colors.white),
                           focusedBorder: OutlineInputBorder(
@@ -185,12 +202,38 @@ class _SignupPageState extends State<SignupPage> {
                         fontSize: 18,
                       ),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate())
-                        {Navigator.push(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        Loader.show(
+                          context,
+                          isAppbarOverlay: true,
+                          isBottomBarOverlay: true,
+                          progressIndicator: const CircularProgressIndicator(),
+                          themeData: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.fromSwatch().copyWith(
+                                  secondary: Colors.black38,
+                                  primary: HexColor(primaryColorString))),
+                          // overlayColor: const Color(0x99E8EAF6)
+                        );
+                        dynamic data = await Auth()
+                            .register(_email.text, _name.text, _password.text);
+                        Loader.hide();
+                        if (data != null) {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LoginPage()));}
+                              builder: (context) => const TeacherHome(),
+                            ),
+                          );
+                          ToastService.showToast(
+                              "Account successfully created", context,
+                              isTop: false);
+                        } else {
+                          ToastService.showToast(
+                              "Email already in use", context,
+                              isTop: true);
+                        }
+                      }
                     },
                   ),
                 ),

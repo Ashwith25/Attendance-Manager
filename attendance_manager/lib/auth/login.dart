@@ -1,7 +1,11 @@
 import 'package:attendance_manager/Home/teacherHome.dart';
 import 'package:attendance_manager/auth/signup.dart';
+import 'package:attendance_manager/services/auth_service.dart';
+import 'package:attendance_manager/services/toast_service.dart';
+import 'package:attendance_manager/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:attendance_manager/constants.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,10 +17,18 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool _passwordVisible = false;
   final _formKey = GlobalKey<FormState>();
+  final _email = TextEditingController();
+  final _password = TextEditingController();
   @override
   void initState() {
     super.initState();
     _passwordVisible = false;
+  }
+
+  @override
+  void dispose() {
+    Loader.hide();
+    super.dispose();
   }
 
   final textSelectionControl = TextSelectionControls;
@@ -56,6 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 50, 20, 10),
                     child: TextFormField(
+                        controller: _email,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Email Address can't be empty";
@@ -80,6 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                     child: TextFormField(
+                        controller: _password,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Password can't be empty";
@@ -129,12 +143,35 @@ class _LoginPageState extends State<LoginPage> {
                           fontSize: 18,
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          Navigator.push(
+                          Loader.show(
+                            context,
+                            isAppbarOverlay: true,
+                            isBottomBarOverlay: true,
+                            progressIndicator:
+                                const CircularProgressIndicator(),
+                            themeData: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.fromSwatch().copyWith(
+                                    secondary: Colors.black38,
+                                    primary: HexColor(primaryColorString))),
+                            // overlayColor: const Color(0x99E8EAF6)
+                          );
+                          dynamic data =
+                              await Auth().login(_email.text, _password.text);
+                          Loader.hide();
+                          if (data != null) {
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const TeacherHome()));
+                                builder: (context) => const TeacherHome(),
+                              ),
+                            );
+                          } else {
+                            ToastService.showToast(
+                                "Please enter valid credentials", context,
+                                isTop: true);
+                          }
                         }
                       },
                     ),

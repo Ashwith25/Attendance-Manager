@@ -46,6 +46,11 @@ dependencies:
   geolocator: ^7.7.0
   permission_handler: ^8.2.2
   google_maps_flutter: ^2.0.6
+  http: ^0.13.4
+  shared_preferences: ^2.0.8
+  image_picker: ^0.8.4+3
+  logger: ^1.1.0
+  flutter_overlay_loader: ^1.0.3
 
 dev_dependencies:
   flutter_test:

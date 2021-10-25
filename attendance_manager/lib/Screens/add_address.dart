@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:attendance_manager/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';

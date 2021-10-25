@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ToastService {
-  static void showToast(String msg, BuildContext context) {
+  static void showToast(String msg, BuildContext context, {bool isTop = false}) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -13,6 +13,10 @@ class ToastService {
             fontSize: 16,
           ),
         ),
+        margin: EdgeInsets.only(
+            bottom: isTop ? MediaQuery.of(context).size.height - 100 : 50,
+            right: 20,
+            left: 20),
         backgroundColor: Colors.grey[700],
         duration: const Duration(seconds: 5),
         action: SnackBarAction(
