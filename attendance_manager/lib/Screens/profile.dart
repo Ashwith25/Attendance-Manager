@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:attendance_manager/Screens/add_address.dart';
 import 'package:attendance_manager/auth/change_password.dart';
 import 'package:attendance_manager/services/get_location.dart';
@@ -6,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:attendance_manager/constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 
@@ -24,13 +28,22 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _role = TextEditingController();
   final TextEditingController _address = TextEditingController();
 
+  fillData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var user = jsonDecode(prefs.getString('user')!)["user"];
+    var address = prefs.getString('address');
+    Logger().i(address);
+    _email.text = user['email'];
+    _name.text = user['username'];
+    _role.text = user['userType'].toString().toUpperCase();
+    _address.text =
+        address != "null" ? address! : "Address not found";
+  }
+
   @override
   void initState() {
     super.initState();
-    _email.text = "defaultEmail@student.mes.ac.in";
-    _name.text = "Teacher Name";
-    _role.text = "TEACHER";
-    _address.text = "Address not found";
+    fillData();
     checkLocationPermission();
   }
 
@@ -132,10 +145,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               }
                               return null;
                             },
-                            onTap: (){
-                              if(!isEditing){
+                            onTap: () {
+                              if (!isEditing) {
                                 ToastService.showToast(
-                                    "Tap on the edit icon to make changes", context);
+                                    "Tap on the edit icon to make changes",
+                                    context);
                               }
                             },
                             style: const TextStyle(color: Colors.white),
@@ -187,10 +201,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               }
                               return null;
                             },
-                            onTap: (){
-                              if(!isEditing){
+                            onTap: () {
+                              if (!isEditing) {
                                 ToastService.showToast(
-                                    "Tap on the edit icon to make changes", context);
+                                    "Tap on the edit icon to make changes",
+                                    context);
                               }
                             },
                             style: const TextStyle(color: Colors.white),
@@ -220,10 +235,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               }
                               return null;
                             },
-                            onTap: (){
-                              if(!isEditing){
+                            onTap: () {
+                              if (!isEditing) {
                                 ToastService.showToast(
-                                    "Tap on the edit icon to make changes", context);
+                                    "Tap on the edit icon to make changes",
+                                    context);
                               }
                             },
                             style: const TextStyle(color: Colors.white),
@@ -269,7 +285,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 });
                               } else {
                                 ToastService.showToast(
-                                    "Tap on the edit icon to make changes", context);
+                                    "Tap on the edit icon to make changes",
+                                    context);
                               }
                             },
                             validator: (value) {

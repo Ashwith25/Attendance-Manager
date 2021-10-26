@@ -1,5 +1,8 @@
 // ignore_for_file: file_names
 import 'package:attendance_manager/constants.dart';
+import 'package:attendance_manager/models/class_model.dart';
+import 'package:attendance_manager/services/class_service.dart';
+import 'package:attendance_manager/services/toast_service.dart';
 import 'package:attendance_manager/widgets/chart.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -7,32 +10,97 @@ import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
 // import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:logger/logger.dart';
 
 import 'markAttendance.dart';
 
 class EachClass extends StatefulWidget {
-  const EachClass({Key? key}) : super(key: key);
+  final String classId;
+  final String teacherId;
+  final String className;
+  const EachClass(
+      {Key? key,
+      required this.classId,
+      required this.teacherId,
+      required this.className})
+      : super(key: key);
 
   @override
   _EachClassState createState() => _EachClassState();
 }
 
 class _EachClassState extends State<EachClass> {
-  List<Map> list = List.generate(10, (index) {
-    return {"name": "Student${index + 1}", "email": "student@gmail.com"};
-  });
+  // List<Map> list = List.generate(10, (index) {
+  //   return {"name": "Student${index + 1}", "email": "student@gmail.com"};
+  // });
+
+  List<Students> students = [];
+  bool loading = true;
+  List allStudents = [];
+  late ClassModel classModel;
+
+  getStudents() async {
+    var data = await ClassService().getStudents();
+    setState(() {
+      allStudents = data;
+      allStudents.removeWhere((element) => element["userType"] != "student");
+    });
+  }
+
+  removeStudent(String studentId) async {
+    var data = classModel;
+    data.students!
+        .removeWhere((element) => element.student![0].id == studentId);
+    // var studentData = {
+    //   "student": [
+    //     {"_id": studentid, "id": studentid}
+    //   ]
+    // };
+    // data["students"].add(studentData);
+    await ClassService().addStudent(data, widget.classId);
+    ToastService.showToast("Student added", context);
+    setState(() {
+      getClassDetails();
+    });
+  }
+
+  getClassDetails() async {
+    var data = await ClassService().getEachClassDetails(widget.classId);
+    if (data.isNotEmpty) {
+      setState(() {
+        classModel = ClassModel.fromJson(data);
+        students = data["students"]
+            .map<Students>((json) => Students.fromJson(json))
+            .toList();
+        loading = false;
+      });
+    } else {
+      setState(() {
+        loading = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getStudents();
+    getClassDetails();
+  }
 
   SwipeActionController? controller = SwipeActionController();
 
-  MaterialBanner materialBanner(BuildContext context, int i) {
+  MaterialBanner materialBanner(BuildContext context, int i, String studentId) {
     return MaterialBanner(
-        content: Text("Do you want to remove this student $i?"),
+        content: const Text("Do you want to remove this student?"),
         actions: [
           TextButton(
-              onPressed: () {
+              onPressed: () async {
                 ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
                 _flag = false;
-                list.removeAt(i);
+                students.removeAt(i);
+                removeStudent(studentId);
+                ToastService.showToast("Student deleted", context);
                 setState(() {});
               },
               child: Text(
@@ -58,354 +126,386 @@ class _EachClassState extends State<EachClass> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: false,
-          // leadingWidth: 0,
-          elevation: 10,
-          leading: AbsorbPointer(
-            absorbing: _flag,
-            child: IconButton(
-              color: Colors.white,
-              icon: const Icon(Icons.arrow_back_ios_outlined),
-              onPressed: () {
-                ScaffoldMessenger.of(context).clearMaterialBanners();
-                Navigator.of(context).pop();
-              },
-            ),
-          ),
-          // leading: Container(
-          //   width: 0,
-          // ),
-          actions: [
-            AbsorbPointer(
-              absorbing: _flag,
-              child: Container(
-                margin: const EdgeInsets.only(right: 10),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.add,
-                    size: 30,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).clearMaterialBanners();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MarkAttendancePage()));
-                  },
-                ),
-              ),
+      child: loading
+          ? const Scaffold(
+              // appBar: A,
+              backgroundColor: Colors.blueGrey,
+              body: Center(child: CircularProgressIndicator()),
             )
-          ],
-          title: const Text(
-            'Class X',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          foregroundColor: Theme.of(context).primaryColor,
-        ),
-        body: AbsorbPointer(
-          absorbing: _flag,
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            height: size.height,
-            width: size.width,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              // color: Colors.grey,
-              // color: Colors.red
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Neumorphic(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 13, vertical: 10),
-                    style: NeumorphicStyle(
-                        shape: NeumorphicShape.convex,
-                        boxShape: NeumorphicBoxShape.roundRect(
-                            BorderRadius.circular(10)),
-                        depth: 3,
-                        intensity: 0.7,
-                        surfaceIntensity: 0.15,
-                        shadowDarkColor: Colors.black87,
-                        shadowDarkColorEmboss: Colors.black,
-                        shadowLightColor: Colors.grey[700],
-                        lightSource: LightSource.topLeft,
-                        color: Theme.of(context).primaryColor),
+          : Scaffold(
+              appBar: AppBar(
+                centerTitle: false,
+                // leadingWidth: 0,
+                elevation: 10,
+                leading: AbsorbPointer(
+                  absorbing: _flag,
+                  child: IconButton(
+                    color: Colors.white,
+                    icon: const Icon(Icons.arrow_back_ios_outlined),
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).clearMaterialBanners();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+                // leading: Container(
+                //   width: 0,
+                // ),
+                actions: [
+                  AbsorbPointer(
+                    absorbing: _flag,
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.add,
+                          size: 30,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).clearMaterialBanners();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const MarkAttendancePage()));
+                        },
+                      ),
+                    ),
+                  )
+                ],
+                title: Text(
+                  'Class ${widget.className}',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                foregroundColor: Theme.of(context).primaryColor,
+              ),
+              body: AbsorbPointer(
+                absorbing: _flag,
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  height: size.height,
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    // color: Colors.grey,
+                    // color: Colors.red
+                  ),
+                  child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(14),
-                          child: Text(
-                            "Attendance",
-                            style:
-                                Theme.of(context).textTheme.bodyText2!.copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                      color: goldenColor,
-                                    ),
-                          ),
-                        ),
-                        // Expanded(child: SizedBox()),
-                        const SizedBox(width: 50),
-                        Container(
-                          height: 1,
-                          width: MediaQuery.of(context).size.width,
-                          color: goldenColor,
-                        ),
-                        const SizedBox(height: 10),
-                        // isLoading
-                        //     ? Container(
-                        //         height: 250,
-                        //         child: Center(
-                        //           child: AnimatedBuilder(
-                        //             animation: animationController,
-                        //             child: new Container(
-                        //               height: 50.0,
-                        //               width: 50.0,
-                        //               child: new Image.asset(
-                        //                   ConstanceData.loader),
-                        //             ),
-                        //             builder: (BuildContext context,
-                        //                 Widget _widget) {
-                        //               return new Transform.rotate(
-                        //                 angle: animationController.value * 10,
-                        //                 child: _widget,
-                        //               );
-                        //             },
-                        //           ),
-                        //         ))
-                        // :
-                        // maxValue == 0
-                        //     ? Container(
-                        //         height: 250,
-                        //         child: Center(
-                        //           child: Text("No orders found"),
-                        //         ),
-                        //       )
-                        // :
-                        SizedBox(
-                            height: 250,
-                            width: MediaQuery.of(context).size.width,
-                            child: const AttendanceBarChart(
-                              value: [
-                                [0, "10"],
-                                [1, "20"],
-                                [2, "30"],
-                                [3, "40"],
-                                [4, "50"],
-                              ],
-                              interval: 25,
-                              maxValue: 100,
-                              data: ["Mon", "Tue", "Wed", "Thu", "Fri"],
-                              expandValue: 1,
-                            )),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Students",
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: goldenColor,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            ScaffoldMessenger.of(context)
-                                .clearMaterialBanners();
-                            popUp();
-                          },
-                          child: Icon(
-                            Icons.add,
-                            size: 25,
-                            color: goldenColor,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  for (int i = 0; i < list.length; i++)
-                    Container(
-                      // color: Colors.white,
-                      margin: const EdgeInsets.only(top: 10),
-                      child: SwipeActionCell(
-                        isDraggable: true,
-                        backgroundColor: Colors.transparent,
-                        controller: controller,
-                        index: i,
-                        key: ValueKey(list[i]),
-                        normalAnimationDuration: 500,
-                        deleteAnimationDuration: 500,
-                        performsFirstActionWithFullSwipe: false,
-                        leadingActions: [
-                          SwipeAction(
-                              // backgroundRadius: 12.0,
-                              widthSpace: 300,
-                              title: "delete",
-                              icon:
-                                  const Icon(Icons.delete, color: Colors.white),
-                              // nestedAction: SwipeNestedAction(title: "confirm"),
-                              onTap: (handler) async {
-                                _flag = true;
-                                // print("handler is ${handler}");
-                                // await handler(true);
-                                ScaffoldMessenger.of(context)
-                                    .showMaterialBanner(
-                                        materialBanner(context, i));
-
-                                setState(() {});
-                              }),
-
-                          // SwipeAction(title: "action2", color: Colors.grey, onTap: (handler) {}),
-                        ],
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Stack(
-                            alignment: Alignment.centerRight,
+                        Neumorphic(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 13, vertical: 10),
+                          style: NeumorphicStyle(
+                              shape: NeumorphicShape.convex,
+                              boxShape: NeumorphicBoxShape.roundRect(
+                                  BorderRadius.circular(10)),
+                              depth: 3,
+                              intensity: 0.7,
+                              surfaceIntensity: 0.15,
+                              shadowDarkColor: Colors.black87,
+                              shadowDarkColorEmboss: Colors.black,
+                              shadowLightColor: Colors.grey[700],
+                              lightSource: LightSource.topLeft,
+                              color: Theme.of(context).primaryColor),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(
-                                        // top: 10,
-                                        right: 5),
-                                    width: 5,
-                                    height: 75,
-                                    // color: Theme.of(context).accentColor,
-                                    // color: const Color(0xFFF5C35A),
-                                    color: goldenColor,
-                                  ),
-                                  Container(
-                                    // margin: const EdgeInsets.only(top: 10),
-                                    height: 75,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.85,
-                                    // width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                            begin: Alignment.centerLeft,
-                                            stops: const [
-                                          0.3,
-                                          1
-                                        ],
-                                            colors: [
-                                          Colors.black38,
-                                          // Color.fromRGBO(0, 0, 0, 0.0)
-                                          Theme.of(context).primaryColor
-                                          // Colors.white
-                                        ])),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            list[i]["name"]
-                                                .toString()
-                                                .toUpperCase(),
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: goldenColor,
-                                            ),
-                                          ),
-                                          Text(
-                                            list[i]["email"],
-                                            // style:
-                                            style: const TextStyle(
-                                              letterSpacing: 1,
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w100,
-                                              // fontWeight: FontWeight.,
-                                              color: Colors.white,
-                                            ),
-                                          )
-                                        ],
+                              Padding(
+                                padding: const EdgeInsets.all(14),
+                                child: Text(
+                                  "Attendance",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: goldenColor,
                                       ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                              // NameCard(
-                              //   title: list[i]["name"],
-                              //   subtitle: list[i]["email"],
-                              // ),
+                              // Expanded(child: SizedBox()),
+                              const SizedBox(width: 50),
+                              Container(
+                                height: 1,
+                                width: MediaQuery.of(context).size.width,
+                                color: goldenColor,
+                              ),
+                              const SizedBox(height: 10),
+                              // isLoading
+                              //     ? Container(
+                              //         height: 250,
+                              //         child: Center(
+                              //           child: AnimatedBuilder(
+                              //             animation: animationController,
+                              //             child: new Container(
+                              //               height: 50.0,
+                              //               width: 50.0,
+                              //               child: new Image.asset(
+                              //                   ConstanceData.loader),
+                              //             ),
+                              //             builder: (BuildContext context,
+                              //                 Widget _widget) {
+                              //               return new Transform.rotate(
+                              //                 angle: animationController.value * 10,
+                              //                 child: _widget,
+                              //               );
+                              //             },
+                              //           ),
+                              //         ))
+                              // :
+                              // maxValue == 0
+                              //     ? Container(
+                              //         height: 250,
+                              //         child: Center(
+                              //           child: Text("No orders found"),
+                              //         ),
+                              //       )
+                              // :
+                              SizedBox(
+                                  height: 250,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: const AttendanceBarChart(
+                                    value: [
+                                      [0, "10"],
+                                      [1, "20"],
+                                      [2, "30"],
+                                      [3, "40"],
+                                      [4, "50"],
+                                    ],
+                                    interval: 25,
+                                    maxValue: 100,
+                                    data: ["Mon", "Tue", "Wed", "Thu", "Fri"],
+                                    expandValue: 1,
+                                  )),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Students",
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: goldenColor,
+                                ),
+                              ),
                               GestureDetector(
                                 onTap: () {
-                                  // ScaffoldMessenger.of(context)
-                                  //     .showMaterialBanner(
-                                  //         materialBanner(context, i));
+                                  ScaffoldMessenger.of(context)
+                                      .clearMaterialBanners();
+                                  popUp();
                                 },
-                                child: Container(
-                                    margin: const EdgeInsets.only(
-                                      right: 20,
-                                    ),
-                                    child: Icon(
-                                      Icons.double_arrow_sharp,
-                                      color: goldenColor,
-                                    )),
+                                child: Icon(
+                                  Icons.add,
+                                  size: 25,
+                                  color: goldenColor,
+                                ),
                               )
                             ],
                           ),
                         ),
-                      ),
-                    )
-                  // Container(
-                  //     height: size.height * .7,
-                  //     width: size.width,
-                  //     child: ListView.builder(
-                  //         padding:
-                  //             EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                  //         itemCount: 10,
-                  //         itemBuilder: (context, index) => TeacherNameCard(
-                  //               className: "Class ${index + 1}",
-                  //               studentCount: index + 10,
-                  //             )))
-                ],
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        for (int i = 0; i < students.length; i++)
+                          Container(
+                            // color: Colors.white,
+                            margin: const EdgeInsets.only(top: 10),
+                            child: SwipeActionCell(
+                              isDraggable: true,
+                              backgroundColor: Colors.transparent,
+                              controller: controller,
+                              index: i,
+                              key: ValueKey(students[i]),
+                              normalAnimationDuration: 500,
+                              deleteAnimationDuration: 500,
+                              performsFirstActionWithFullSwipe: false,
+                              leadingActions: [
+                                SwipeAction(
+                                    // backgroundRadius: 12.0,
+                                    widthSpace: 300,
+                                    title: "delete",
+                                    icon: const Icon(Icons.delete,
+                                        color: Colors.white),
+                                    // nestedAction: SwipeNestedAction(title: "confirm"),
+                                    onTap: (handler) async {
+                                      _flag = true;
+                                      // print("handler is ${handler}");
+                                      // await handler(true);
+                                      ScaffoldMessenger.of(context)
+                                          .showMaterialBanner(materialBanner(
+                                              context,
+                                              i,
+                                              students[i].student![0].id!));
+
+                                      setState(() {});
+                                    }),
+
+                                // SwipeAction(title: "action2", color: Colors.grey, onTap: (handler) {}),
+                              ],
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                child: Stack(
+                                  alignment: Alignment.centerRight,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.only(
+                                              // top: 10,
+                                              right: 5),
+                                          width: 5,
+                                          height: 75,
+                                          // color: Theme.of(context).accentColor,
+                                          // color: const Color(0xFFF5C35A),
+                                          color: goldenColor,
+                                        ),
+                                        Container(
+                                          // margin: const EdgeInsets.only(top: 10),
+                                          height: 75,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.85,
+                                          // width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: Alignment.centerLeft,
+                                                  stops: const [
+                                                0.3,
+                                                1
+                                              ],
+                                                  colors: [
+                                                Colors.black38,
+                                                // Color.fromRGBO(0, 0, 0, 0.0)
+                                                Theme.of(context).primaryColor
+                                                // Colors.white
+                                              ])),
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 10),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  students[i]
+                                                      .student![0]
+                                                      .username
+                                                      .toString()
+                                                      .toUpperCase(),
+                                                  style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: goldenColor,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  students[i]
+                                                      .student![0]
+                                                      .email!,
+                                                  // style:
+                                                  style: const TextStyle(
+                                                    letterSpacing: 1,
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.w100,
+                                                    // fontWeight: FontWeight.,
+                                                    color: Colors.white,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    // NameCard(
+                                    //   title: list[i]["name"],
+                                    //   subtitle: list[i]["email"],
+                                    // ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        // ScaffoldMessenger.of(context)
+                                        //     .showMaterialBanner(
+                                        //         materialBanner(context, i));
+                                      },
+                                      child: Container(
+                                          margin: const EdgeInsets.only(
+                                            right: 20,
+                                          ),
+                                          child: Icon(
+                                            Icons.double_arrow_sharp,
+                                            color: goldenColor,
+                                          )),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        if (students.isEmpty)
+                          SizedBox(
+                              height: 200,
+                              child: Center(
+                                  child: Text(
+                                "No students yet",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: goldenColor,
+                                ),
+                              ))),
+
+                        // Container(
+                        //     height: size.height * .7,
+                        //     width: size.width,
+                        //     child: ListView.builder(
+                        //         padding:
+                        //             EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                        //         itemCount: 10,
+                        //         itemBuilder: (context, index) => TeacherNameCard(
+                        //               className: "Class ${index + 1}",
+                        //               studentCount: index + 10,
+                        //             )))
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
-      ),
     );
   }
 
-  List emails = [
-    "poojaryashan18it@student.mes.ac.in",
-    "variarmanra18it@student.mes.ac.in",
-    "ritikarad18it@student.mes.ac.in",
-    "mhatrechisa18it@student.mes.ac.in",
-  ];
+  // List emails = [
+  //   "poojaryashan18it@student.mes.ac.in",
+  //   "variarmanra18it@student.mes.ac.in",
+  //   "ritikarad18it@student.mes.ac.in",
+  //   "mhatrechisa18it@student.mes.ac.in",
+  // ];
 
-  Map name = {
-    "ashwith": "poojaryashan18it@student.mes.ac.in",
-    "manasi": "variarmanra18it@student.mes.ac.in",
-    "ritika": "ritikarad18it@student.mes.ac.in",
-    "chinmay": "mhatrechisa18it@student.mes.ac.in",
-  };
+  // Map name = {
+  //   "ashwith": "poojaryashan18it@student.mes.ac.in",
+  //   "manasi": "variarmanra18it@student.mes.ac.in",
+  //   "ritika": "ritikarad18it@student.mes.ac.in",
+  //   "chinmay": "mhatrechisa18it@student.mes.ac.in",
+  // };
 
   searchEmail() {
     if (_emailController.text.isEmpty) {
@@ -413,13 +513,31 @@ class _EachClassState extends State<EachClass> {
     }
     // print('My med list: ${searchApi.medList}');
 
-    return emails.where(
-      (email) => email
+    return allStudents.where(
+      (student) => student["email"]
           .toString()
           .toLowerCase()
           .contains(_emailController.text.toLowerCase()),
     );
   }
+
+  addStudent(String studentId) async {
+    var data = classModel.toJson();
+    // data.students!.add(Students(student: [Student(id: studentId)]));
+    var studentData = {
+      "student": [
+        {"_id": studentid, "id": studentid}
+      ]
+    };
+    data["students"].add(studentData);
+    await ClassService().addStudent(data, widget.classId);
+    ToastService.showToast("Student added", context);
+    setState(() {
+      getClassDetails();
+    });
+  }
+
+  late String studentid;
 
   popUp() async {
     showDialog(
@@ -520,14 +638,18 @@ class _EachClassState extends State<EachClass> {
                           itemBuilder: (context, suggestion) {
                             return GestureDetector(
                               onTap: () {
-                                _emailController.text = suggestion as String;
-                                name.forEach((key, value) {
-                                  if (value.toString().toLowerCase() ==
-                                      suggestion.toString().toLowerCase()) {
-                                    _nameController.text =
-                                        key.toString().toUpperCase();
-                                  }
-                                });
+                                _nameController.text =
+                                    (suggestion as Map)["username"] as String;
+                                _emailController.text =
+                                    (suggestion as Map)["email"];
+                                studentid = (suggestion as Map)["id"];
+                                // name.forEach((key, value) {
+                                //   if (value.toString().toLowerCase() ==
+                                //       suggestion.toString().toLowerCase()) {
+                                //     _nameController.text =
+                                //         key.toString().toUpperCase();
+                                //   }
+                                // });
                                 FocusScope.of(context).unfocus();
                               },
                               child: SizedBox(
@@ -538,7 +660,7 @@ class _EachClassState extends State<EachClass> {
                                     child: Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        suggestion as String,
+                                        (suggestion as Map)["email"] as String,
                                         style: const TextStyle(
                                           color: Colors.black,
                                         ),
@@ -615,6 +737,7 @@ class _EachClassState extends State<EachClass> {
                                 _emailController.clear();
                                 _nameController.clear();
                                 Navigator.of(context).pop();
+                                addStudent(studentid);
                               }
                               // Navigator.push(
                               //     context,

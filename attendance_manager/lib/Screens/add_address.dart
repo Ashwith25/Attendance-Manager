@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:attendance_manager/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GooogleMap extends StatefulWidget {
   final Function setAddress;
@@ -160,7 +163,10 @@ class _AddressScreenState extends State<AddressScreen> {
                           fontSize: 18,
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.setString('address', address!);
                         Navigator.of(context).pop(address);
                       },
                     ),

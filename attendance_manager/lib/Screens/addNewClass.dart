@@ -1,8 +1,13 @@
 // ignore_for_file: file_names
 
+import 'dart:convert';
+
 import 'package:attendance_manager/constants.dart';
+import 'package:attendance_manager/services/class_service.dart';
+import 'package:attendance_manager/services/toast_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddNewClassPage extends StatefulWidget {
   const AddNewClassPage({Key? key}) : super(key: key);
@@ -13,11 +18,22 @@ class AddNewClassPage extends StatefulWidget {
 
 class _AddNewClassPageState extends State<AddNewClassPage> {
   final List<String> _year = ["FE", "SE", "TE", "BE"];
-  final List<String> _branch = ["COMPS", "IT", "EXTC", "ETRX", "AUTOMOBILE", "MECHANICAL"];
-  final List<String> _subject = ["Artifical Intelligence", "Enterprise Network design", "CSL"];
+  final List<String> _branch = [
+    "COMPS",
+    "IT",
+    "EXTC",
+    "ETRX",
+    "AUTOMOBILE",
+    "MECHANICAL"
+  ];
+  final List<String> _subject = [
+    "Artifical Intelligence",
+    "Enterprise Network design",
+    "CSL"
+  ];
 
   final _formKey = GlobalKey<FormBuilderState>();
-  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -62,14 +78,20 @@ class _AddNewClassPageState extends State<AddNewClassPage> {
                     // initialValue: 'Male',
                     dropdownColor: Theme.of(context).primaryColor,
                     allowClear: true,
-                    clearIcon: const Icon(Icons.close, color: Colors.white,),
+                    clearIcon: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                    ),
                     // hint: Text('Select Subject'),
                     validator: FormBuilderValidators.compose(
                         [FormBuilderValidators.required(context)]),
                     items: _year
                         .map((year) => DropdownMenuItem(
                               value: year,
-                              child: Text(year, style: const TextStyle(color: Colors.white),),
+                              child: Text(
+                                year,
+                                style: const TextStyle(color: Colors.white),
+                              ),
                             ))
                         .toList(),
                   ),
@@ -92,14 +114,20 @@ class _AddNewClassPageState extends State<AddNewClassPage> {
                     // initialValue: 'Male',
                     dropdownColor: Theme.of(context).primaryColor,
                     allowClear: true,
-                    clearIcon: const Icon(Icons.close, color: Colors.white,),
+                    clearIcon: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                    ),
                     // hint: Text('Select Subject'),
                     validator: FormBuilderValidators.compose(
                         [FormBuilderValidators.required(context)]),
                     items: _branch
                         .map((branch) => DropdownMenuItem(
                               value: branch,
-                              child: Text(branch, style: const TextStyle(color: Colors.white),),
+                              child: Text(
+                                branch,
+                                style: const TextStyle(color: Colors.white),
+                              ),
                             ))
                         .toList(),
                   ),
@@ -122,14 +150,20 @@ class _AddNewClassPageState extends State<AddNewClassPage> {
                     // initialValue: 'Male',
                     allowClear: true,
                     dropdownColor: Theme.of(context).primaryColor,
-                    clearIcon: const Icon(Icons.close, color: Colors.white,),
+                    clearIcon: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                    ),
                     // hint: Text('Select Subject'),
                     validator: FormBuilderValidators.compose(
                         [FormBuilderValidators.required(context)]),
                     items: _subject
                         .map((subject) => DropdownMenuItem(
                               value: subject,
-                              child: Text(subject, style: const TextStyle(color: Colors.white),),
+                              child: Text(
+                                subject,
+                                style: const TextStyle(color: Colors.white),
+                              ),
                             ))
                         .toList(),
                   ),
@@ -149,10 +183,31 @@ class _AddNewClassPageState extends State<AddNewClassPage> {
                         fontSize: 18,
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        // print(_formKey.currentState!.fields["subject"]!.value);
-                        Navigator.of(context).pop();
+                        String year =
+                            _formKey.currentState!.fields["year"]!.value;
+                        String branch =
+                            _formKey.currentState!.fields["branch"]!.value;
+                        String subject =
+                            _formKey.currentState!.fields["subject"]!.value;
+                        String className = year + "-" + branch;
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        String userId =
+                            jsonDecode(prefs.getString("user")!)["user"]["id"];
+                        var data = await ClassService()
+                            .addClass(userId, subject, className);
+                        if (data != null) {
+                          Navigator.of(context).pop();
+                          ToastService.showToast(
+                              "Class added successfully", context,
+                              isTop: false);
+                        } else {
+                          ToastService.showToast(
+                              "Something went wrong", context,
+                              isTop: false);
+                        }
                       }
                     },
                   ),

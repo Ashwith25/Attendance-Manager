@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:attendance_manager/Home/studentHome.dart';
 import 'package:attendance_manager/Home/teacherHome.dart';
 import 'package:attendance_manager/auth/signup.dart';
 import 'package:attendance_manager/services/auth_service.dart';
@@ -161,12 +164,23 @@ class _LoginPageState extends State<LoginPage> {
                               await Auth().login(_email.text, _password.text);
                           Loader.hide();
                           if (data != null) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const TeacherHome(),
-                              ),
-                            );
+                            var userType = data["user"]['userType'];
+                            if (userType.toString().toLowerCase() ==
+                                'teacher') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const TeacherHome(),
+                                ),
+                              );
+                            } else {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const StudentHome(),
+                                ),
+                              );
+                            }
                           } else {
                             ToastService.showToast(
                                 "Please enter valid credentials", context,
