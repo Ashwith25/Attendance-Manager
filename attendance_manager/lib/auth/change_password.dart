@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:attendance_manager/auth/login.dart';
 import 'package:attendance_manager/constants.dart';
+import 'package:attendance_manager/services/auth_service.dart';
+import 'package:attendance_manager/services/toast_service.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({Key? key}) : super(key: key);
@@ -10,19 +15,35 @@ class ChangePasswordPage extends StatefulWidget {
 }
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
-  final TextEditingController _oldpassword = TextEditingController();
   final TextEditingController _newpassword = TextEditingController();
   final TextEditingController _confirm = TextEditingController();
+  final TextEditingController _email = TextEditingController();
 
-  bool _passwordVisible = false;
   bool _passwordVisible1 = false;
   bool _passwordVisible2 = false;
   final _formKey = GlobalKey<FormState>();
 
+  Map user = {};
+
+  fillData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    user = jsonDecode(prefs.getString('user')!)["user"];
+    _email.text = user['email'];
+    setState(() {});
+  }
+
+  changePassword(password) async {
+    await Auth().changePassword({
+      "password": password.trim(),
+    }, user['id']);
+    ToastService.showToast("Password updated", context);
+    Navigator.of(context).pop();
+  }
+
   @override
   void initState() {
     super.initState();
-    _passwordVisible = false;
+    fillData();
   }
 
   @override
@@ -61,6 +82,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   Container(
                     padding: const EdgeInsets.fromLTRB(20, 50, 20, 10),
                     child: TextFormField(
+                        controller: _email,
+                        readOnly: true,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Email Address can't be empty";
@@ -79,45 +102,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                 borderSide: BorderSide(color: Colors.white)),
                             labelText: "Email Address",
                             labelStyle: TextStyle(color: Colors.white))),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-                    child: TextFormField(
-                      controller: _oldpassword,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Password can't be empty";
-                        }
-                        return null;
-                      },
-                      obscureText: !_passwordVisible,
-                      style: const TextStyle(color: Colors.white),
-                      cursorColor: Colors.white,
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _passwordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible;
-                            });
-                          },
-                        ),
-                        helperStyle: const TextStyle(color: Colors.white),
-                        focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white)),
-                        enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white)),
-                        border: const OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white)),
-                        labelText: "Old Password",
-                        labelStyle: const TextStyle(color: Colors.white),
-                      ),
-                    ),
                   ),
 
                   Container(
@@ -217,10 +201,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       ),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const LoginPage()));
+                          changePassword(_confirm.text);
                         }
                       },
                     ),

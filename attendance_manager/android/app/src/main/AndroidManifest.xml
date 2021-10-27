@@ -1,12 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ram.attendance_manager">
     <uses-permission android:name="android.permission.INTERNET" />
+    
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
    <application
-   
+   android:requestLegacyExternalStorage="true"
    android:usesCleartextTraffic="true"
         android:label="Attendance Manager"
         android:icon="@mipmap/ic_launcher"

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:attendance_manager/Home/studentHome.dart';
 import 'package:attendance_manager/Home/teacherHome.dart';
 import 'package:attendance_manager/auth/signup.dart';

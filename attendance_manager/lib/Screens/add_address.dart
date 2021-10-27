@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:attendance_manager/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -88,6 +86,12 @@ class _AddressScreenState extends State<AddressScreen> {
     setState(() {
       _address.text = address!;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setAddress(widget.position.latitude, widget.position.longitude);
   }
 
   final TextEditingController _address = TextEditingController();

@@ -12,10 +12,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:flutter_swipe_action_cell/core/controller.dart';
-// import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:intl/intl.dart';
-import 'package:logger/logger.dart';
 
 import 'markAttendance.dart';
 
@@ -35,10 +33,6 @@ class EachClass extends StatefulWidget {
 }
 
 class _EachClassState extends State<EachClass> {
-  // List<Map> list = List.generate(10, (index) {
-  //   return {"name": "Student${index + 1}", "email": "student@gmail.com"};
-  // });
-
   List<Students> students = [];
   List<AttendanceModel> attendance = [];
 
@@ -59,12 +53,6 @@ class _EachClassState extends State<EachClass> {
     var data = classModel;
     data.students!
         .removeWhere((element) => element.student![0].id == studentId);
-    // var studentData = {
-    //   "student": [
-    //     {"_id": studentid, "id": studentid}
-    //   ]
-    // };
-    // data["students"].add(studentData);
     await ClassService().addStudent(data, widget.classId);
     ToastService.showToast("Student added", context);
     setState(() {
@@ -332,7 +320,18 @@ class _EachClassState extends State<EachClass> {
                                                             attendance[i]
                                                                 .publishedAt!)),
                                                   )),
-                                            )
+                                            ),
+                                          if (attendance.isEmpty)
+                                            SizedBox(
+                                              height: size.height * 0.8,
+                                              child: Center(
+                                                  child: Text(
+                                                      'No attendance recorded',
+                                                      style: TextStyle(
+                                                        color: goldenColor,
+                                                        fontSize: 15,
+                                                      ))),
+                                            ),
                                         ],
                                       ),
                                     ),

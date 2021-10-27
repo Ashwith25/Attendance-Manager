@@ -1,17 +1,20 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:attendance_manager/Screens/add_address.dart';
 import 'package:attendance_manager/auth/change_password.dart';
+import 'package:attendance_manager/services/auth_service.dart';
 import 'package:attendance_manager/services/get_location.dart';
 import 'package:attendance_manager/services/toast_service.dart';
+import 'package:attendance_manager/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:attendance_manager/constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-// import 'package:attendance_manager/Flutter-Neumorphic-master/Flutter-Neumorphic-master/lib/flutter_neumorphic.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -22,22 +25,52 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   bool isEditing = false;
+  String? imagePath;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _name = TextEditingController();
   final TextEditingController _role = TextEditingController();
   final TextEditingController _address = TextEditingController();
 
+  Map user = {};
+
   fillData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user = jsonDecode(prefs.getString('user')!)["user"];
-    var address = prefs.getString('address');
-    Logger().i(address);
+    user = jsonDecode(prefs.getString('user')!)["user"];
+    var address = prefs.getString('address').toString();
+    imagePath = prefs.getString('imagePath');
     _email.text = user['email'];
     _name.text = user['username'];
     _role.text = user['userType'].toString().toUpperCase();
-    _address.text =
-        address != "null" ? address! : "Address not found";
+    _address.text = address != "null" ? address : "Address not found";
+    setState(() {});
+  }
+
+  changeUsername(username) async {
+    Loader.show(
+      context,
+      isAppbarOverlay: true,
+      isBottomBarOverlay: true,
+      progressIndicator: const CircularProgressIndicator(),
+      themeData: Theme.of(context).copyWith(
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+              secondary: Colors.black38,
+              primary: HexColor(primaryColorString))),
+      // overlayColor: const Color(0x99E8EAF6)
+    );
+    var data = await Auth().changePassword({
+      "username": username.trim(),
+    }, user['id']);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    user = jsonDecode(prefs.getString('user')!);
+    user['user'] = data;
+    Logger().i(user);
+    prefs.setString('user', json.encode(user));
+    Loader.hide();
+    ToastService.showToast("Profile updated", context);
+    isEditing = false;
+    setState(() {});
+    // Navigator.of(context).pop();
   }
 
   @override
@@ -45,6 +78,12 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     fillData();
     checkLocationPermission();
+  }
+
+  @override
+  void dispose() {
+    Loader.hide();
+    super.dispose();
   }
 
   @override
@@ -108,16 +147,50 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: CircleAvatar(
                     radius: 70,
                     backgroundColor: Theme.of(context).primaryColor,
-                    child: IconButton(
-                      // padding: EdgeInsets.all(40),
-                      iconSize: 90,
-                      color: Colors.white,
-                      icon: Icon(
-                        Icons.person_add_alt_1_rounded,
-                        color: goldenColor,
-                      ),
-                      onPressed: () {},
-                    ),
+                    child: imagePath != null
+                        ? GestureDetector(
+                            onTap: () async {
+                              var pickedFile = await ImagePicker().pickImage(
+                                source: ImageSource.gallery,
+                                maxWidth: 1800,
+                                maxHeight: 1800,
+                              );
+                              if (pickedFile != null) {
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+                                prefs.setString("imagePath", pickedFile.path);
+                                fillData();
+                              }
+                            },
+                            child: Image.file(
+                              File(imagePath!),
+                              height: 150,
+                              width: 150,
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                        : IconButton(
+                            // padding: EdgeInsets.all(40),
+                            iconSize: 90,
+                            color: Colors.white,
+                            icon: Icon(
+                              Icons.person_add_alt_1_rounded,
+                              color: goldenColor,
+                            ),
+                            onPressed: () async {
+                              var pickedFile = await ImagePicker().pickImage(
+                                source: ImageSource.gallery,
+                                maxWidth: 1800,
+                                maxHeight: 1800,
+                              );
+                              if (pickedFile != null) {
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+                                prefs.setString("imagePath", pickedFile.path);
+                                fillData();
+                              }
+                            },
+                          ),
                   ),
                 ),
                 // Neumorphic(
@@ -137,20 +210,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       Container(
                         padding: const EdgeInsets.fromLTRB(20, 50, 20, 10),
                         child: TextFormField(
-                            readOnly: !isEditing,
+                            readOnly: true,
                             controller: _email,
+                            
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Email Address can't be empty";
                               }
                               return null;
-                            },
-                            onTap: () {
-                              if (!isEditing) {
-                                ToastService.showToast(
-                                    "Tap on the edit icon to make changes",
-                                    context);
-                              }
                             },
                             style: const TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
@@ -195,18 +262,18 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: TextFormField(
                             readOnly: !isEditing,
                             controller: _name,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Name can't be empty";
-                              }
-                              return null;
-                            },
                             onTap: () {
                               if (!isEditing) {
                                 ToastService.showToast(
                                     "Tap on the edit icon to make changes",
                                     context);
                               }
+                            },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Name can't be empty";
+                              }
+                              return null;
                             },
                             style: const TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
@@ -234,13 +301,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                 return "Role can't be empty";
                               }
                               return null;
-                            },
-                            onTap: () {
-                              if (!isEditing) {
-                                ToastService.showToast(
-                                    "Tap on the edit icon to make changes",
-                                    context);
-                              }
                             },
                             style: const TextStyle(color: Colors.white),
                             cursorColor: Colors.white,
@@ -353,7 +413,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  if (_formKey.currentState!.validate()) {}
+                                  if (_formKey.currentState!.validate()) {
+                                    changeUsername(
+                                      _name.text,
+                                    );
+                                  }
                                   //   Navigator.push(
                                   //       context,
                                   //       MaterialPageRoute(

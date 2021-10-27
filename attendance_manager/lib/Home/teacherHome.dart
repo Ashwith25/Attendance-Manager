@@ -14,7 +14,6 @@ import 'package:attendance_manager/widgets/homeScreenCard.dart';
 import 'package:attendance_manager/widgets/nameCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
-import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TeacherHome extends StatefulWidget {
@@ -196,12 +195,14 @@ class _TeacherHomeState extends State<TeacherHome> {
                           child: Row(
                             children: [
                               GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
+                                onTap: () async {
+                                  await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               const AddNewClassPage()));
+                                  getClasses();
+                                  setState(() {});
                                 },
                                 child: const HomeScreenCard(
                                   title: "Add Class",
@@ -210,12 +211,14 @@ class _TeacherHomeState extends State<TeacherHome> {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
+                                onTap: () async {
+                                  await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               const ProfilePage()));
+                                  getName();
+                                  setState(() {});
                                 },
                                 child: const HomeScreenCard(
                                   title: "Profile",
@@ -256,25 +259,40 @@ class _TeacherHomeState extends State<TeacherHome> {
                         ),
                         for (int i = 0; i < classes.length; i++)
                           GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => EachClass(
-                                        className: classes[i].className!,
-                                        classId: classes[i].id!,
-                                        teacherId: user["user"]["_id"]!,
-                                      )));
+                            onTap: () async {
+                              await Navigator.of(context)
+                                  .push(MaterialPageRoute(
+                                      builder: (context) => EachClass(
+                                            className: classes[i].className!,
+                                            classId: classes[i].id!,
+                                            teacherId: user["user"]["_id"]!,
+                                          )));
+                              getClasses();
+                              setState(() {});
                             },
                             child: Padding(
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
                               child: NameCard(
                                 height: 90,
-                                title: classes[i].className! + " (${classes[i].subject!})",
+                                title: classes[i].className! +
+                                    " (${classes[i].subject!})",
                                 subtitle:
-                                    "${classes[i].students!.length} students",
+                                    "${classes[i].students!.length} student${classes[i].students!.length < 2 ? '' : 's'}",
                               ),
                             ),
-                          )
+                          ),
+                        if (classes.isEmpty)
+                          SizedBox(
+                            height: size.height * 0.5,
+                            child: Center(
+                                child: Text('No class found',
+                                    style: TextStyle(
+                                      color: goldenColor,
+                                      fontSize: 15,
+                                    ))),
+                          ),
+
                         // Container(
                         //     height: size.height * .7,
                         //     width: size.width,

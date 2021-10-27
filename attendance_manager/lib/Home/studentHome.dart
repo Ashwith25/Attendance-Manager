@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 import 'dart:convert';
 
+import 'package:attendance_manager/Screens/attendance_status.dart';
 import 'package:attendance_manager/Screens/profile.dart';
 import 'package:attendance_manager/auth/login.dart';
 import 'package:attendance_manager/constants.dart';
@@ -304,15 +305,39 @@ class _StudentHomeState extends State<StudentHome> {
                           height: 10,
                         ),
                         for (int i = 0; i < classes.length; i++)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: NameCard(
-                              height: 90,
-                              title:
-                                  "${classes[i].subject} (${classes[i].className})",
-                              subtitle: "Prof. ${classes[i].teacher!.username}",
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AttendanceStatus(
+                                            classId: classes[i].id!,
+                                            className: classes[i].className!,
+                                            studentId: user["user"]["_id"],
+                                          )));
+                            },
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: NameCard(
+                                height: 90,
+                                title:
+                                    "${classes[i].subject} (${classes[i].className})",
+                                subtitle:
+                                    "Prof. ${classes[i].teacher!.username}",
+                              ),
                             ),
-                          )
+                          ),
+                        if (classes.isEmpty)
+                          SizedBox(
+                            height: size.height * 0.5,
+                            child: Center(
+                                child: Text('No class found',
+                                    style: TextStyle(
+                                      color: goldenColor,
+                                      fontSize: 15,
+                                    ))),
+                          ),
                         // Container(
                         //     height: size.height * .7,
                         //     width: size.width,
