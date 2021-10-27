@@ -23,7 +23,7 @@ class NameCard extends StatelessWidget {
         ),
         Container(
           margin: const EdgeInsets.only(top: 10),
-          height: 75,
+          // height: 75,
           width: MediaQuery.of(context).size.width * 0.85,
           // width: double.infinity,
           decoration: BoxDecoration(

@@ -64,8 +64,8 @@ class _TeacherHomeState extends State<TeacherHome> {
             data.map<ClassModel>((json) => ClassModel.fromJson(json)).toList();
         classes.removeWhere(
             (element) => element.teacher!.id != user["user"]["_id"]);
-        classes.addAll(
-            data.map<ClassModel>((json) => ClassModel.fromJson(json)).toList());
+        // classes.addAll(
+        //     data.map<ClassModel>((json) => ClassModel.fromJson(json)).toList());
         loading = false;
         Loader.hide();
         // print(classes.length);
@@ -159,7 +159,7 @@ class _TeacherHomeState extends State<TeacherHome> {
                     // color: Colors.red
                   ),
                   child: SingleChildScrollView(
-                    physics: ClampingScrollPhysics(),
+                    physics: const ClampingScrollPhysics(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -268,7 +268,7 @@ class _TeacherHomeState extends State<TeacherHome> {
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
                               child: NameCard(
-                                title: classes[i].className!,
+                                title: classes[i].className! + " (${classes[i].subject!})",
                                 subtitle:
                                     "${classes[i].students!.length} students",
                               ),
