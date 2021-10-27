@@ -8,7 +8,7 @@
    <application
    
    android:usesCleartextTraffic="true"
-        android:label="attendance_manager"
+        android:label="Attendance Manager"
         android:icon="@mipmap/ic_launcher"
    >
    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCoUsa73_oJ-7_mpVfttUYPwbGqEHtaan4"/>

@@ -307,6 +307,7 @@ class _StudentHomeState extends State<StudentHome> {
                           Padding(
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: NameCard(
+                              height: 90,
                               title:
                                   "${classes[i].subject} (${classes[i].className})",
                               subtitle: "Prof. ${classes[i].teacher!.username}",

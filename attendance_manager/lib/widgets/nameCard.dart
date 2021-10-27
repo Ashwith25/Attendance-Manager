@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 class NameCard extends StatelessWidget {
   final String title;
   final String subtitle;
-  const NameCard({Key? key, required this.title, required this.subtitle})
+  final double height;
+  const NameCard({Key? key, required this.title, required this.subtitle, required this.height})
       : super(key: key);
 
   @override
@@ -16,14 +17,14 @@ class NameCard extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(top: 10, right: 5),
           width: 5,
-          height: 75,
+          height: height,
           // color: Theme.of(context).accentColor,
           // color: const Color(0xFFF5C35A),
           color: goldenColor,
         ),
         Container(
           margin: const EdgeInsets.only(top: 10),
-          // height: 75,
+          height: height,
           width: MediaQuery.of(context).size.width * 0.85,
           // width: double.infinity,
           decoration: BoxDecoration(
