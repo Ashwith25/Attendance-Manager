@@ -277,8 +277,9 @@ class _TeacherHomeState extends State<TeacherHome> {
                                 height: 90,
                                 title: classes[i].className! +
                                     " (${classes[i].subject!})",
-                                subtitle:
-                                    "${classes[i].students!.length} student${classes[i].students!.length < 2 ? '' : 's'}",
+                                subtitle: classes[i].students!.isEmpty
+                                    ? "No students"
+                                    : "${classes[i].students!.length} student${classes[i].students!.length < 2 ? '' : 's'}",
                               ),
                             ),
                           ),
