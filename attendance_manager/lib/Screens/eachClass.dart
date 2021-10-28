@@ -54,7 +54,6 @@ class _EachClassState extends State<EachClass> {
     data.students!
         .removeWhere((element) => element.student![0].id == studentId);
     await ClassService().addStudent(data, widget.classId);
-    ToastService.showToast("Student added", context);
     setState(() {
       getClassDetails();
     });
