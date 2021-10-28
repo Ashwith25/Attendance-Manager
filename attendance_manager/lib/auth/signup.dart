@@ -1,11 +1,12 @@
-import 'package:attendance_manager/Home/teacherHome.dart';
-import 'package:attendance_manager/auth/login.dart';
-import 'package:attendance_manager/constants.dart';
-import 'package:attendance_manager/services/auth_service.dart';
-import 'package:attendance_manager/services/toast_service.dart';
-import 'package:attendance_manager/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
+
+import '../Home/teacherHome.dart';
+import '../constants.dart';
+import '../services/auth_service.dart';
+import '../services/toast_service.dart';
+import '../theme.dart';
+import 'login.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:attendance_manager/auth/login.dart';
-import 'package:attendance_manager/constants.dart';
-import 'package:attendance_manager/services/auth_service.dart';
-import 'package:attendance_manager/services/toast_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../constants.dart';
+import '../services/auth_service.dart';
+import '../services/toast_service.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({Key? key}) : super(key: key);

@@ -1,9 +1,10 @@
-import 'package:attendance_manager/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:simple_animations/simple_animations.dart';
-import 'package:attendance_manager/auth/login.dart';
+
+import 'auth/login.dart';
+import 'constants.dart';
 
 class SplashScreen6 extends StatefulWidget {
   const SplashScreen6({Key? key}) : super(key: key);

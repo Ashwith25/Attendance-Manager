@@ -1,16 +1,13 @@
-import 'package:attendance_manager/constants.dart';
-import 'package:attendance_manager/models/attendance_model.dart';
-import 'package:attendance_manager/models/class_model.dart';
-import 'package:attendance_manager/widgets/attendance.dart';
-import 'package:attendance_manager/widgets/nameCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
+
+import '../models/class_model.dart';
+import '../widgets/nameCard.dart';
 
 class StudentPresentAbsent extends StatefulWidget {
-  List<Students> studentsPresent;
-  List<Students> studentsAbsent;
-  StudentPresentAbsent({
+  final List<Students> studentsPresent;
+  final List<Students> studentsAbsent;
+  const StudentPresentAbsent({
     Key? key,
     required this.studentsPresent,
     required this.studentsAbsent,

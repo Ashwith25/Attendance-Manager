@@ -60,6 +60,7 @@ class _StudentHomeState extends State<StudentHome> {
     // Logger().i(data);
     if (data.isNotEmpty) {
       setState(() {
+        classes = [];
         // classes =
         //     data.map<ClassModel>((json) => ClassModel.fromJson(json)).toList();
         // classes.removeWhere(
@@ -137,20 +138,21 @@ class _StudentHomeState extends State<StudentHome> {
               body: RefreshIndicator(
                 backgroundColor: Colors.white,
                 onRefresh: () async {
-                  setState(() {
-                    // loading = true;
-                    Loader.show(
-                      context,
-                      isAppbarOverlay: true,
-                      isBottomBarOverlay: true,
-                      progressIndicator: const CircularProgressIndicator(),
-                      themeData: Theme.of(context).copyWith(
-                          colorScheme: ColorScheme.fromSwatch().copyWith(
-                              secondary: Colors.black38,
-                              primary: HexColor(primaryColorString))),
-                      // overlayColor: const Color(0x99E8EAF6)
-                    );
-                  });
+                  // setState(() {
+                  //   // loading = true;
+                  //   Loader.show(
+                  //     context,
+                  //     isAppbarOverlay: true,
+                  //     isBottomBarOverlay: true,
+                  //     progressIndicator: const CircularProgressIndicator(),
+                  //     themeData: Theme.of(context).copyWith(
+                  //         colorScheme: ColorScheme.fromSwatch().copyWith(
+                  //             secondary: Colors.black38,
+                  //             primary: HexColor(primaryColorString))),
+                  //     // overlayColor: const Color(0x99E8EAF6)
+                  //   );
+                  // });
+                  await getName();
                   await getClasses();
                 },
                 child: Container(
@@ -163,6 +165,7 @@ class _StudentHomeState extends State<StudentHome> {
                     // color: Colors.red
                   ),
                   child: SingleChildScrollView(
+                    physics: const ClampingScrollPhysics(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -199,12 +202,14 @@ class _StudentHomeState extends State<StudentHome> {
                           child: Row(
                             children: [
                               GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
+                                onTap: () async {
+                                  await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               const ProfilePage()));
+                                  getName();
+                                  setState(() {});
                                 },
                                 child: const HomeScreenCard(
                                   title: "Profile",

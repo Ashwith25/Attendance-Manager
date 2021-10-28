@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:attendance_manager/Home/studentHome.dart';
-import 'package:attendance_manager/theme.dart';
-import 'package:attendance_manager/welcome.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Home/studentHome.dart';
 import 'Home/teacherHome.dart';
+import 'theme.dart';
+import 'welcome.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

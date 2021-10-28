@@ -164,6 +164,16 @@ class _MarkAttendancePageState extends State<MarkAttendancePage> {
                             ],
                           ),
                         ),
+                        if (student.isEmpty)
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.5,
+                            child: Center(
+                                child: Text('No students found',
+                                    style: TextStyle(
+                                      color: goldenColor,
+                                      fontSize: 15,
+                                    ))),
+                          ),
                     ],
                   ),
                 ),

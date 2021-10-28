@@ -1,20 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:attendance_manager/Screens/add_address.dart';
-import 'package:attendance_manager/auth/change_password.dart';
-import 'package:attendance_manager/services/auth_service.dart';
-import 'package:attendance_manager/services/get_location.dart';
-import 'package:attendance_manager/services/toast_service.dart';
-import 'package:attendance_manager/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:attendance_manager/constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../auth/change_password.dart';
+import '../constants.dart';
+import '../services/auth_service.dart';
+import '../services/get_location.dart';
+import '../services/toast_service.dart';
+import '../theme.dart';
+import 'add_address.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -152,6 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             onTap: () async {
                               var pickedFile = await ImagePicker().pickImage(
                                 source: ImageSource.gallery,
+                                // preferredCameraDevice: CameraDevice.rear,
                                 maxWidth: 1800,
                                 maxHeight: 1800,
                               );
@@ -180,6 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             onPressed: () async {
                               var pickedFile = await ImagePicker().pickImage(
                                 source: ImageSource.gallery,
+                                // preferredCameraDevice: CameraDevice.rear,
                                 maxWidth: 1800,
                                 maxHeight: 1800,
                               );
@@ -212,7 +215,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: TextFormField(
                             readOnly: true,
                             controller: _email,
-                            
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Email Address can't be empty";

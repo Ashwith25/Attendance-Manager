@@ -1,10 +1,11 @@
-import 'package:attendance_manager/constants.dart';
-import 'package:attendance_manager/models/attendance_model.dart';
-import 'package:attendance_manager/models/stud_att.dart';
-import 'package:attendance_manager/services/attendance_service.dart';
-import 'package:attendance_manager/widgets/attendance_status_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../constants.dart';
+import '../models/attendance_model.dart';
+import '../models/stud_att.dart';
+import '../services/attendance_service.dart';
+import '../widgets/attendance_status_card.dart';
 
 class AttendanceStatus extends StatefulWidget {
   final String className;

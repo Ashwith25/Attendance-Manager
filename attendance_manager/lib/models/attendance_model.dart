@@ -1,4 +1,4 @@
-import 'package:attendance_manager/models/class_model.dart';
+import 'class_model.dart';
 
 class AttendanceModel {
   String? id;
